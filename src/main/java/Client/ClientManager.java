@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientManager {
-    private final Map<Long, Client> clients;
+    private final Map<Long, Client> clients; // <chat id, client>
 
     public ClientManager()
     {

@@ -2,23 +2,25 @@ package Client;
 
 import Models.Train;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
-public class Client {
+public class Client implements Serializable {
     private final Long id;
     private ClientState clientState;
     private String fromStation = "";
     private String toStation = "";
     private LocalDate date = LocalDate.now();
-    private Map<Integer, Train> savedTrains = new HashMap<>();
-    private final List<NotificationSession> sessionList;
+    private Map<Integer, Train> savedTrains = new HashMap<>(); // <messageId, train>
+    private final Set<NotificationSession> sessions = ConcurrentHashMap.newKeySet();
+
 
     public Client(long id)
     {
         this.id = id;
         clientState = ClientState.DEFAULT;
-        sessionList = new ArrayList<>();
     }
 
     public Long getId() {
@@ -59,34 +61,34 @@ public class Client {
 
     public ArrayList<Train> getSubscribedTrains()
     {
-        ArrayList<Train> trains = new ArrayList<>(sessionList.size());
-        for(NotificationSession session : sessionList)
+        ArrayList<Train> trains = new ArrayList<>(sessions.size());
+        for(NotificationSession session : sessions)
         {
             trains.add(session.getTrain());
         }
         return trains;
     }
-
+///// ///////////////////////////////////////
     public NotificationSession addSession(Train train)
     {
         NotificationSession newSession = new NotificationSession(this, train);
-        sessionList.add(newSession);
+        sessions.add(newSession);
         return newSession;
     }
 
     public void stopSession(NotificationSession session) {
         session.stop();
-        sessionList.remove(session);
+        sessions.remove(session);
     }
 
     public void stopSession(Train train)
     {
-        for(NotificationSession session : sessionList)
+        for(NotificationSession session : sessions)
         {
             if(Objects.equals(session.getTrain().getId(), train.getId()))
             {
                 session.stop();
-                sessionList.remove(session);
+                sessions.remove(session);
                 return;
             }
         }
@@ -94,13 +96,14 @@ public class Client {
 
     public boolean checkSession(String trainId)
     {
-        for(NotificationSession session : sessionList)
+        for(NotificationSession session : sessions)
         {
             if(trainId.equals(session.getTrain().getId()))
                 return true;
         }
         return false;
     }
+///// /////////////////////////////////////
 
     public Map<Integer, Train> getSavedTrains() {
         return savedTrains;

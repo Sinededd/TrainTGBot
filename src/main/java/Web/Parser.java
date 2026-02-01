@@ -18,20 +18,20 @@ public class Parser {
     {
         ArrayList<Train> trainList = new ArrayList<>();
         try {
-//            Document doc = Jsoup.connect("https://pass.rw.by/ru/route")
-//                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/143.0.0.0")
-//                    .referrer("https://www.google.com")
-//                    .data("from", stationFrom)
-//                    .data("from_exp", "")
-//                    .data("from_esr", "")
-//                    .data("to", stationTo)
-//                    .data("to_exp", "")
-//                    .data("to_esr", "")
-//                    .data("front_date", "")
-//                    .data("date", date.toString())
-//                    .get();
-            File input = new File("page.html");
-            Document doc = Jsoup.parse(input, "UTF-8");
+            Document doc = Jsoup.connect("https://pass.rw.by/ru/route")
+                    .userAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/143.0.0.0")
+                    .referrer("https://www.google.com")
+                    .data("from", stationFrom)
+                    .data("from_exp", "")
+                    .data("from_esr", "")
+                    .data("to", stationTo)
+                    .data("to_exp", "")
+                    .data("to_esr", "")
+                    .data("front_date", "")
+                    .data("date", date.toString())
+                    .get();
+//            File input = new File("page.html");
+//            Document doc = Jsoup.parse(input, "UTF-8");
 
 
             //Get data of trains
