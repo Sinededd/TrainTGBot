@@ -1,6 +1,8 @@
 package Models;
 
-public class Tariff {
+import java.io.Serializable;
+
+public class Tariff implements Serializable {
     private String type;
     private String countPlace;
     private String price;

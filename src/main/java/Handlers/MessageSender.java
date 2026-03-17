@@ -61,7 +61,6 @@ public class MessageSender {
         {
             IO.println("---------------------------");
             IO.println("ID: " + train.getId());
-            IO.println(train.toString());
 
             SendMessage message;
             if(client.checkSession(train.getId()))
@@ -106,7 +105,6 @@ public class MessageSender {
     {
         IO.println("---------------------------");
         IO.println("ID: " + train.getId());
-        IO.println(train.toString());
 
         SendMessage message;
         if(client.checkSession(train.getId()))

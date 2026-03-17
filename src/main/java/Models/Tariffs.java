@@ -1,9 +1,10 @@
 package Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Tariffs {
+public class Tariffs implements Serializable {
     private final List<Tariff> tariffList;
 
     public Tariffs()

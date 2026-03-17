@@ -3,6 +3,8 @@ package Handlers;
 import Client.Client;
 import Client.ClientManager;
 import Client.ClientState;
+import Client.ClientPermissions;
+import Client.NotificationSession;
 import Models.Train;
 import Web.NoTrainsFoundException;
 import Web.Parser;
@@ -17,8 +19,8 @@ import org.telegram.telegrambots.meta.generics.TelegramClient;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class MessageHandler {
     private final ClientManager clientManager;
@@ -26,19 +28,20 @@ public class MessageHandler {
 
     public MessageHandler(ClientManager clientManager, TelegramClient telegramClient)
     {
+        this.messageSender = new MessageSender(telegramClient);
         this.clientManager = clientManager;
-        messageSender = new MessageSender(telegramClient);
     }
 
     public void inputHandle(Message message)
     {
         long chat_id = message.getChatId();
         String msg = message.getText();
-        Client client = clientManager.getOrAddClient(chat_id);  // Client.Client who sent the message
-        ClientState inputState = client.getClientState();
-        IO.println(client.getId() + "(" + client.getClientState() + "):\t\t" + msg);
 
-        if(inputCommand(client, msg))
+        Client client = clientManager.getOrAddClient(chat_id, message.getFrom());  // Client.Client who sent the message
+        ClientState inputState = client.getClientState();
+        IO.println(client.getId() + ":" + message.getFrom().getUserName() + "(" + client.getClientState() + "):\t\t" + msg);
+
+        if(inputCommand(client, message))
             return;
 
         switch (inputState)
@@ -47,19 +50,19 @@ public class MessageHandler {
                 break;
             case WAITING_FROM_STATION:
                 client.setFromStation(msg);
-                messageSender.sendMessage(client,"Введите город прибытия: ");
+                MessageSender.sendMessage(client,"Введите город прибытия: ");
                 client.setClientState(ClientState.WAITING_TO_STATION);
                 break;
             case WAITING_TO_STATION:
                 client.setToStation(msg);
-                messageSender.sendMessage(client,"Введите дату оправления (2026-01-22): ");
+                MessageSender.sendMessage(client,"Введите дату оправления (2026-01-22): ");
                 client.setClientState(ClientState.WAITING_DATE);
                 break;
             case WAITING_DATE:
                 try {
                     client.setDate(LocalDate.parse(msg));
                 } catch (DateTimeParseException e) {
-                    messageSender.sendMessage(client, "Неверный формат даты. Попробуйте ещё раз");
+                    MessageSender.sendMessage(client, "Неверный формат даты. Попробуйте ещё раз");
                     break;
                 }
                 requestToSite(client);
@@ -68,15 +71,16 @@ public class MessageHandler {
         }
     }
 
-    private boolean inputCommand(Client client, String msg)
+    private boolean inputCommand(Client client, Message message)
     {
+        String msg = message.getText();
         switch (msg) {
             case "/start" -> {
                 client.setClientState(ClientState.DEFAULT);
                 return true;
             }
             case "/schedule" -> {
-                if (messageSender.sendMessage(client, "Введите город отправления: ")) {
+                if (MessageSender.sendMessage(client, "Введите город отправления: ")) {
                     client.setClientState(ClientState.WAITING_FROM_STATION);
                     return true;
                 } else {
@@ -85,28 +89,66 @@ public class MessageHandler {
             }
             case "/subscriptions" -> {
                 client.setClientState(ClientState.DEFAULT);
-                messageSender.sendMessageTrains(client, client.getSubscribedTrains());
+                MessageSender.sendMessageTrains(client, client.getSubscribedTrains());
                 return true;
             }
-            case "/test" -> {
-                SendMessage message = SendMessage
-                        .builder()
-                        .chatId(client.getId())
-                        .text("Тест кнопки")
-                        .replyMarkup(InlineKeyboardMarkup
-                                .builder()
-                                .keyboardRow(new InlineKeyboardRow(InlineKeyboardButton
-                                        .builder()
-                                        .text("Нажми")
-                                        .callbackData("test_button")
-                                        .build())).build())
-                        .build();
-                try {
-                    messageSender.getTelegramClient().execute(message);
-                } catch (TelegramApiException e) {
-                    System.err.println("Ошибка сообщения с кнопкий!!\n" + e.getMessage());
-                    return false;
+//            case "/test" -> {
+//                SendMessage message = SendMessage
+//                        .builder()
+//                        .chatId(client.getId())
+//                        .text("Тест кнопки")
+//                        .replyMarkup(InlineKeyboardMarkup
+//                                .builder()
+//                                .keyboardRow(new InlineKeyboardRow(InlineKeyboardButton
+//                                        .builder()
+//                                        .text("Нажми")
+//                                        .callbackData("test_button")
+//                                        .build())).build())
+//                        .build();
+//                try {
+//                    messageSender.getTelegramClient().execute(message);
+//                } catch (TelegramApiException e) {
+//                    System.err.println("Ошибка сообщения с кнопкий!!\n" + e.getMessage());
+//                    return false;
+//                }
+//                return true;
+//            }
+            case "/admin" -> {
+                client.setClientState(ClientState.DEFAULT);
+                if(client.getClientPermissions() == ClientPermissions.USER){
+                    MessageSender.sendMessage(client,"У вас нет прав адмистратора");
+                    IO.println("Пользователь " + client.getId() + "не имеет прав админа");
                 }
+                else if(client.getClientPermissions() == ClientPermissions.ADMIN)
+                {
+                    MessageSender.sendMessage(client,"Команды администратора:\n" +
+                            "/users - показывает список пользователей");
+                    IO.println("Пользователь " + client.getId() + "является админом");
+                }
+                return true;
+            }
+            case "/users" -> {
+                client.setClientState(ClientState.DEFAULT);
+                StringBuilder outText = new StringBuilder("Пользователи:\n");
+                if(client.getClientPermissions() == ClientPermissions.ADMIN) {
+                    Map<Long, Client> clients = clientManager.getAllClients();
+                    for (Client cl : clients.values()) {
+                        outText.append("`").append(cl.getId()).append("`: @").append(cl.getClientUserName()).append("\n");
+                        Set<NotificationSession> sessionSet = cl.getSessions();
+                        for(NotificationSession s: sessionSet)
+                        {
+                            outText.append("`   ").append(s.getTrain().getId()).append("\n`");
+                        }
+                    }
+                }
+                String outTextStr = outText.toString()
+                        .replace("*", "\\*")
+                        .replace("_", "\\_")
+                        .replace("[", "\\[")
+                        .replace("]", "\\]")
+                        .replace("(", "\\(")
+                        .replace(")", "\\)");
+                MessageSender.sendMessageMarkdown(client, outTextStr);
                 return true;
             }
         }
@@ -118,10 +160,10 @@ public class MessageHandler {
         try {
             ArrayList<Train> trains = Parser.getTrains(client.getFromStation(),
                     client.getToStation(), client.getDate());
-            messageSender.sendMessageTrains(client, trains);
+            MessageSender.sendMessageTrains(client, trains);
         } catch (NoTrainsFoundException e) {
             System.err.println(e.getMessage());
-            messageSender.sendMessage(client, e.getMessage());
+            MessageSender.sendMessage(client, e.getMessage());
         }
     }
 }

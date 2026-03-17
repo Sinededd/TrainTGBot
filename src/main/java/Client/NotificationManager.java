@@ -1,5 +1,6 @@
 package Client;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -8,13 +9,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class NotificationManager {
+public class NotificationManager implements Serializable {
 
-    private static final int PERIOD_SECONDS = 300;
+    private static final int PERIOD_SECONDS = 900;
 
     private static final NotificationManager INSTANCE = new NotificationManager();
-    private final Set<NotificationSession> sessions = ConcurrentHashMap.newKeySet();
-    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+    private Set<NotificationSession> sessions = ConcurrentHashMap.newKeySet();
+    private transient final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     public static NotificationManager getInstance() {
         return INSTANCE;
@@ -66,5 +67,9 @@ public class NotificationManager {
 
     public Set<NotificationSession> getSessions() {
         return sessions;
+    }
+
+    public void setSessions(Set<NotificationSession> sessions) {
+        this.sessions = sessions;
     }
 }

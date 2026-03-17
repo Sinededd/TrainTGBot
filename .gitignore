@@ -39,3 +39,7 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Custom ###
+saving.dat
+/out

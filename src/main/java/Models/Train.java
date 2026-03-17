@@ -1,10 +1,11 @@
 package Models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 
-public class Train {
+public class Train implements Serializable {
 
     private final String trainNumber;
     private final LocalDate date;

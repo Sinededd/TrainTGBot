@@ -116,13 +116,13 @@ public class Parser {
                         .build());
             }
 
-//            FileWriter writer = new FileWriter("page.html");
-//            writer.write(doc.html());
-//            writer.close();
-//
-//            FileWriter writerTrains = new FileWriter("trains.html");
-//            writerTrains.write(trains.html());
-//            writerTrains.close();
+            FileWriter writer = new FileWriter("page.html");
+            writer.write(doc.html());
+            writer.close();
+
+            FileWriter writerTrains = new FileWriter("trains.html");
+            writerTrains.write(trains.html());
+            writerTrains.close();
 
         } catch (IOException e) {
             e.printStackTrace();

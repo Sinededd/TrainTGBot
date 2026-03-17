@@ -6,6 +6,7 @@ import Models.Train;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
+import org.telegram.telegrambots.meta.api.objects.message.MaybeInaccessibleMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardRow;
@@ -33,19 +34,12 @@ public class CallbackHandler {
         long chat_id = callbackQuery.getMessage().getChatId();
         int message_id = callbackQuery.getMessage().getMessageId();
 
-        Client client = clientManager.getOrAddClient(chat_id);
+        Client client = clientManager.getOrAddClient(chat_id, callbackQuery.getFrom());
         IO.println(client.getId() + "(Button):\t\t" + call_data);
-        if (call_data.equals("test_button"))
-        {
-            testOnTrain(chat_id, message_id);
-        }
-        else if(call_data.equals("subscribe_button"))
-        {
-            onSubscribeButton(chat_id, message_id, callbackQuery.getMessage().toString());
-        }
-        else if(call_data.equals("unsubscribe_button"))
-        {
-            onUnsubscribeButton(chat_id, message_id, callbackQuery.getMessage().toString());
+        switch (call_data) {
+            case "test_button" -> testOnTrain(chat_id, message_id);
+            case "subscribe_button" -> onSubscribeButton(callbackQuery);
+            case "unsubscribe_button" -> onUnsubscribeButton(callbackQuery);
         }
     }
 
@@ -65,9 +59,13 @@ public class CallbackHandler {
         }
     }
 
-    private void onSubscribeButton(long chat_id, int message_id, String msg)
+    private void onSubscribeButton(CallbackQuery callbackQuery)
     {
-        Client client = clientManager.getOrAddClient(chat_id);
+        long chat_id = callbackQuery.getMessage().getChatId();
+        int message_id = callbackQuery.getMessage().getMessageId();
+        String msg = callbackQuery.getMessage().toString();
+
+        Client client = clientManager.getOrAddClient(chat_id, callbackQuery.getFrom());
         Train train = client.getTrainByMessageId(message_id);
         if(train == null) {
             EditMessageText new_message = EditMessageText.builder()
@@ -104,9 +102,13 @@ public class CallbackHandler {
         }
     }
 
-    private void onUnsubscribeButton(long chat_id, int message_id, String msg)
+    private void onUnsubscribeButton(CallbackQuery callbackQuery)
     {
-        Client client = clientManager.getOrAddClient(chat_id);
+        long chat_id = callbackQuery.getMessage().getChatId();
+        int message_id = callbackQuery.getMessage().getMessageId();
+        String msg = callbackQuery.getMessage().toString();
+
+        Client client = clientManager.getOrAddClient(chat_id, callbackQuery.getFrom());
         Train train = client.getTrainByMessageId(message_id);
         if(train == null) {
             EditMessageText new_message = EditMessageText.builder()

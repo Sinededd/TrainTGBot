@@ -6,13 +6,14 @@ import Models.Tariff;
 import Models.Train;
 import Web.Parser;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class NotificationSession {
+public class NotificationSession implements Serializable {
     private final Client client;
     private Train train;
 
