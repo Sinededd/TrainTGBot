@@ -1,16 +1,25 @@
-# This is a sample Python script.
+import asyncio
+from playwright.async_api import async_playwright, Playwright, BrowserContext
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from parser import Parser
 
 
-# Press the green button in the gutter to run the script.
+async def run(playwright: Playwright) -> None:
+    browser = await playwright.chromium.launch(headless=False, slow_mo=100)
+    context = await browser.new_context()
+
+    parser = Parser(context)
+    await parser.login()
+    # ---------------------
+
+    await context.close()
+    await browser.close()
+
+
+async def main():
+    async with async_playwright() as playwright:
+        await run(playwright)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    asyncio.run(main())
