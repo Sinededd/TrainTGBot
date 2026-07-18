@@ -1,29 +1,37 @@
+import json
 import os
-import urllib
-from datetime import date
+import time
+import urllib.parse
+from datetime import date, datetime, timezone
 
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from playwright.async_api import BrowserContext
+from playwright.async_api import BrowserContext, TimeoutError
 
-from models.tariffs import Tariffs
-from models.train import Train
+from train_repository import TrainRepository
+from .models.tariffs import Tariffs
+from .models.train import Train
 from no_trains_found_exception import NoTrainsFoundException
+
 
 load_dotenv()
 
 
 class Parser:
-    def __init__(self, context: BrowserContext):
+    """Network parser for the Belarusian Railway website."""
+
+    def __init__(self, context: BrowserContext, trainRepository: TrainRepository):
+        self.trainRepository = trainRepository
         self.context = context
+
 
     async def login(self):
         page = await self.context.new_page()
         await page.goto("https://pass.rw.by/ru/")
-        try:
-            await page.locator(".close").first.click()
-        except TimeoutError:
-            pass
+        close_button = page.locator(".close").first
+
+        if await close_button.is_visible():
+            await close_button.click()
         await page.get_by_role("button", name="Принять").click()
         await page.get_by_role("link", name="Личный кабинет").click()
 
@@ -40,6 +48,8 @@ class Parser:
         await page.get_by_role("button", name="Войти").click()
 
         await page.close()
+
+
 
     async def get_trains(self, station_from: str, station_to: str, date_val: date) -> list[Train]:
         train_list = []
@@ -66,7 +76,7 @@ class Parser:
                 pass
             html_content = await page.content()
         finally:
-            pass
+            await page.close()
 
         # --- 3. Парсинг страницы с помощью BeautifulSoup ---
         soup = BeautifulSoup(html_content, "html.parser")
@@ -174,5 +184,36 @@ class Parser:
         #         f.write("\n".join(str(t) for t in trains))
         # except Exception as e:
         #     print(f"Не удалось сохранить отладочные файлы: {e}")
-        await page.pause()
+        await page.close()
         return train_list
+
+
+    async def check_available_seats(self, train_id: str):
+        train = self.trainRepository.get_by_id(train_id)
+
+        # Create and send request
+        dt = datetime.strptime(
+            f"{train.date} {train.dep_time}",
+            "%Y-%m-%d %H:%M"
+        )
+        params = {
+            "from": train.dep_station,
+            "to": train.arr_station,
+            "date": train.date,
+            "train_number": train.train_number,
+            "car_type": "2",                    # !!! Пользователь должен иметь возможно устанавливать приоритет  типов вагона или отключать ненужные
+            "apply_modificator": "",
+            "from_time": int(dt.timestamp()),
+            "_": (time.time_ns() // 1_000_000)
+        }
+        print(params)
+
+        url = f"https://pass.rw.by/ru/ajax/route/car_places/?{urllib.parse.urlencode(params)}"
+
+        api_request_context = self.context.request
+        response = await api_request_context.get(url)
+        json_data = await response.json()
+        with open("soup_page.json", "w", encoding="utf-8") as f:
+            json.dump(json_data, f, ensure_ascii=False, indent=4)
+
+        return url
