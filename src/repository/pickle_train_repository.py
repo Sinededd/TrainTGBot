@@ -1,6 +1,6 @@
 import pickle
 
-from train_repository import TrainRepository
+from repository.train_repository import TrainRepository
 
 
 class PickleTrainRepository(TrainRepository):

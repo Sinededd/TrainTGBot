@@ -1,10 +1,12 @@
 import asyncio
 from datetime import date
 
-from playwright.async_api import async_playwright, Playwright, BrowserContext
+from playwright.async_api import async_playwright, Playwright
 
+import seats_extractor
+from models import tariffs, available_seats
 from src.parser import Parser
-from pickle_train_repository import PickleTrainRepository
+from repository.pickle_train_repository import PickleTrainRepository
 
 
 async def run(playwright: Playwright) -> None:
@@ -16,13 +18,16 @@ async def run(playwright: Playwright) -> None:
     await parser.login()
 
     # ---------------------
-    trains = await parser.get_trains("Минск", "Лунинец", date(2026, 7, 24))
+    trains = await parser.get_trains("Минск", "Лунинец", date(2026, 7, 25))
 
     for train in trains:
         pickle_tr_repo.save(train)
         print(train)
+        print(train.tariffs)
+        print("-----------------------")
 
-    await parser.check_available_seats(train_id=trains[0].id)
+    train_data = await parser.get_train_data(train_id=trains[1].id)
+    print(seats_extractor.extract_seats(train_data))
     # ---------------------
 
     await context.close()

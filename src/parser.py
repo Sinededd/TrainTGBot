@@ -2,13 +2,14 @@ import json
 import os
 import time
 import urllib.parse
-from datetime import date, datetime, timezone
+from datetime import date, datetime
+from typing import Dict
 
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from playwright.async_api import BrowserContext, TimeoutError
+from playwright.async_api import BrowserContext
 
-from train_repository import TrainRepository
+from repository.train_repository import TrainRepository
 from .models.tariffs import Tariffs
 from .models.train import Train
 from no_trains_found_exception import NoTrainsFoundException
@@ -188,7 +189,7 @@ class Parser:
         return train_list
 
 
-    async def check_available_seats(self, train_id: str):
+    async def get_train_data(self, train_id: str) -> Dict:
         train = self.trainRepository.get_by_id(train_id)
 
         # Create and send request
@@ -213,7 +214,7 @@ class Parser:
         api_request_context = self.context.request
         response = await api_request_context.get(url)
         json_data = await response.json()
-        with open("soup_page.json", "w", encoding="utf-8") as f:
+        with open(f"train{train.id}.json", "w", encoding="utf-8") as f:
             json.dump(json_data, f, ensure_ascii=False, indent=4)
 
-        return url
+        return json_data
