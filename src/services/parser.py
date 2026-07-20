@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import time
 import urllib.parse
 from datetime import date, datetime
@@ -7,12 +8,13 @@ from typing import Dict
 
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from playwright.async_api import BrowserContext
+from playwright.async_api import BrowserContext, expect, Page
 
+from models.available_seats import Seat
 from repository.train_repository import TrainRepository
-from .models.tariffs import Tariffs
-from .models.train import Train
-from no_trains_found_exception import NoTrainsFoundException
+from models.tariffs import Tariffs
+from models.train import Train
+from exceptions import NoTrainsFoundException
 
 
 load_dotenv()
@@ -49,7 +51,6 @@ class Parser:
         await page.get_by_role("button", name="Войти").click()
 
         await page.close()
-
 
 
     async def get_trains(self, station_from: str, station_to: str, date_val: date) -> list[Train]:
@@ -185,8 +186,12 @@ class Parser:
         #         f.write("\n".join(str(t) for t in trains))
         # except Exception as e:
         #     print(f"Не удалось сохранить отладочные файлы: {e}")
+
+
+
         await page.close()
         return train_list
+
 
 
     async def get_train_data(self, train_id: str) -> Dict:
@@ -218,3 +223,62 @@ class Parser:
             json.dump(json_data, f, ensure_ascii=False, indent=4)
 
         return json_data
+
+
+    async def choose_train(self, train_id: str) -> Page:
+        train = self.trainRepository.get_by_id(train_id)
+
+        params = {
+            "from": train.dep_station,
+            "from_exp": "",
+            "from_esr": "",
+            "to": train.arr_station,
+            "to_exp": "",
+            "to_esr": "",
+            "front_date": "",
+            "date": str(train.date)
+        }
+        url = f"https://pass.rw.by/ru/route?{urllib.parse.urlencode(params)}"
+
+        page = await self.context.new_page()
+        await page.goto(url)
+        train_row = page.locator(f'.sch-table__row[data-train-id="{train.id}"]')
+        await train_row.wait_for(state="visible", timeout=5000)
+        await train_row.get_by_role("link", name="Выбрать места").click()
+        await page.wait_for_load_state("networkidle")
+        return page
+
+    async def choose_seat(self, seat: Seat, page: Page) -> Page:
+        target_carriage = f"Вагон №{seat.carNumber} ({seat.typeAbbr})"
+        panel = page.locator(".pl-accord__panel").filter(has_text=target_carriage)
+        await expect(panel).to_be_visible(timeout=5000)
+        toggle_link = panel.locator(".pl-accord__acc-link")
+        link_class = await toggle_link.get_attribute("class") or ""
+        is_collapsed = "collapsed" in link_class
+        if is_collapsed:
+            print(f"Вагон '{target_carriage}' свернут. Разворачиваем...")
+            await toggle_link.click()
+            collapse_body = panel.locator(".pl-accord__collapse")
+            await expect(collapse_body).to_have_class(re.compile(r"\bin\b"))
+
+            preloader = panel.locator(".preloader")
+            await expect(preloader).to_be_hidden()
+
+            await panel.locator(".carriage__seats, canvas.carriage__canvas--inited").first.wait_for(state="visible")
+
+            print("Вагон успешно раскрыт, схема мест загружена!")
+        else:
+            print(f"Вагон '{target_carriage}' уже был открыт.")
+
+        await panel.locator(".carriage__seat-number").get_by_text(seat.number.lstrip("0"), exact=True).click()
+        await page.get_by_role("link", name="Ввести данные пассажиров").click()
+        return page
+
+
+    async def place_an_order(self, page : Page, surname: str, name: str, midname: str, passNumber: str):
+        await page.get_by_role("textbox", name="Фамилия *").fill(surname)
+        await page.get_by_role("textbox", name="Имя *").fill(name)
+        await page.get_by_role("textbox", name="Отчество").fill(midname)
+        await page.get_by_role("textbox", name="Номер документа *").fill(passNumber)
+        await page.locator(".jq-checkbox").click()
+        await page.get_by_role("button", name="Оформить заказ").click()

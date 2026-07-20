@@ -1,12 +1,12 @@
 import urllib.parse
-from datetime import timezone, datetime
+from datetime import datetime
 from unittest.mock import patch, MagicMock
 
 import pytest
 
 from src.models.tariffs import Tariffs
 from src.models.train import Train
-from src.parser import Parser
+from services.parser import Parser
 
 
 @pytest.mark.asyncio

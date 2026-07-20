@@ -12,6 +12,4 @@ def extract_seats(json_data: Dict) -> AvailableSeats:
         for car in tariff.get('cars', []):
             for emptyPlaces in car.get('emptyPlaces', []):
                 av_seats.add(emptyPlaces, car.get('number'), False, tariff.get('typeAbbr'), float(tariff.get('price_byn').replace(',', '.')))
-
-    print(av_seats)
     return av_seats

@@ -1,11 +1,12 @@
 import asyncio
+import json
 from datetime import date
 
 from playwright.async_api import async_playwright, Playwright
 
-import seats_extractor
-from models import tariffs, available_seats
-from src.parser import Parser
+from models.available_seats import AvailableSeats
+from services import seats_extractor
+from services.parser import Parser
 from repository.pickle_train_repository import PickleTrainRepository
 
 
@@ -18,16 +19,25 @@ async def run(playwright: Playwright) -> None:
     await parser.login()
 
     # ---------------------
-    trains = await parser.get_trains("Минск", "Лунинец", date(2026, 7, 25))
+    # trains = await parser.get_trains("Минск", "Лунинец", date(2026, 7, 25))
+    # for train in trains:
+    #     pickle_tr_repo.save(train)
+    #     print(train)
+    #     print(train.id)
+    #     print(train.tariffs)
+    #     print("-----------------------")
+    train_id = "1_859Б_1784977080_1784989140"
 
-    for train in trains:
-        pickle_tr_repo.save(train)
-        print(train)
-        print(train.tariffs)
-        print("-----------------------")
+    train_data = await parser.get_train_data(train_id)
+    seats = seats_extractor.extract_seats(train_data)
+    seat = seats.get_first(lambda x: not x.hasTable and x.price < 30)
+    print(json.dumps(seat, indent=2, ensure_ascii=False, default=str))
 
-    train_data = await parser.get_train_data(train_id=trains[1].id)
-    print(seats_extractor.extract_seats(train_data))
+    page = await parser.choose_train(train_id)
+    if seat:
+        await parser.choose_seat(seat, page)
+    await parser.place_an_order(page, "Гришко", "Денис", "Михайлович", "AB1111111")
+
     # ---------------------
 
     await context.close()

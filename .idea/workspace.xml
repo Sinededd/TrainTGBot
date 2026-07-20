@@ -4,16 +4,15 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement train repository with pickle serialization and getting available seats">
-      <change afterPath="$PROJECT_DIR$/src/models/available_seats.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/seats_extractor.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/__init__.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: get available seats">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pickle_train_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/pickle_train_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/train_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/train_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/available_seats.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/available_seats.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/no_trains_found_exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/exceptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/seats_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/seats_extractor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +82,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/services" />
       <recent name="$PROJECT_DIR$/src/repository" />
       <recent name="$PROJECT_DIR$/src" />
     </key>
@@ -175,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784368910564</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: get available seats">
+      <option name="closed" value="true" />
+      <created>1784442858806</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1784442858806</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -196,7 +204,8 @@
     <MESSAGE value="init python" />
     <MESSAGE value="feat: implement train parsing" />
     <MESSAGE value="feat: implement train repository with pickle serialization and getting available seats" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement train repository with pickle serialization and getting available seats" />
+    <MESSAGE value="feat: get available seats" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: get available seats" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
