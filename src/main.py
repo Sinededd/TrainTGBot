@@ -33,10 +33,10 @@ async def run(playwright: Playwright) -> None:
     seat = seats.get_first(lambda x: not x.hasTable and x.price < 30)
     print(json.dumps(seat, indent=2, ensure_ascii=False, default=str))
 
-    page = await parser.choose_train(train_id)
     if seat:
-        await parser.choose_seat(seat, page)
-    await parser.place_an_order(page, "Гришко", "Денис", "Михайлович", "AB1111111")
+        await parser.choose_train(train_id)
+        await parser.choose_seat(seat)
+        await parser.place_an_order("Гришко", "Денис", "Михайлович", "AB1111111")
 
     # ---------------------
 

@@ -4,15 +4,10 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: get available seats">
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="refactor: booking a ticket function in not depend on page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/available_seats.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/available_seats.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/no_trains_found_exception.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/exceptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/seats_extractor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/seats_extractor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/test_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -183,7 +178,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784442858806</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: parsing chosen train, pick suitable seat, order a ticket">
+      <option name="closed" value="true" />
+      <created>1784567498202</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1784567498202</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,7 +208,8 @@
     <MESSAGE value="feat: implement train parsing" />
     <MESSAGE value="feat: implement train repository with pickle serialization and getting available seats" />
     <MESSAGE value="feat: get available seats" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: get available seats" />
+    <MESSAGE value="feat: parsing chosen train, pick suitable seat, order a ticket" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: parsing chosen train, pick suitable seat, order a ticket" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

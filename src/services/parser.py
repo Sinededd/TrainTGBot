@@ -26,6 +26,7 @@ class Parser:
     def __init__(self, context: BrowserContext, trainRepository: TrainRepository):
         self.trainRepository = trainRepository
         self.context = context
+        self.train_page = None
 
 
     async def login(self):
@@ -225,7 +226,7 @@ class Parser:
         return json_data
 
 
-    async def choose_train(self, train_id: str) -> Page:
+    async def choose_train(self, train_id: str) -> None:
         train = self.trainRepository.get_by_id(train_id)
 
         params = {
@@ -240,17 +241,17 @@ class Parser:
         }
         url = f"https://pass.rw.by/ru/route?{urllib.parse.urlencode(params)}"
 
-        page = await self.context.new_page()
-        await page.goto(url)
-        train_row = page.locator(f'.sch-table__row[data-train-id="{train.id}"]')
+        self.train_page = await self.context.new_page()
+        await self.train_page.goto(url)
+        train_row = self.train_page.locator(f'.sch-table__row[data-train-id="{train.id}"]')
         await train_row.wait_for(state="visible", timeout=5000)
         await train_row.get_by_role("link", name="Выбрать места").click()
-        await page.wait_for_load_state("networkidle")
-        return page
+        await self.train_page.locator(".pl-accord__panel").first.wait_for(state="visible", timeout=10000)
 
-    async def choose_seat(self, seat: Seat, page: Page) -> Page:
+
+    async def choose_seat(self, seat: Seat) -> None:
         target_carriage = f"Вагон №{seat.carNumber} ({seat.typeAbbr})"
-        panel = page.locator(".pl-accord__panel").filter(has_text=target_carriage)
+        panel = self.train_page.locator(".pl-accord__panel").filter(has_text=target_carriage)
         await expect(panel).to_be_visible(timeout=5000)
         toggle_link = panel.locator(".pl-accord__acc-link")
         link_class = await toggle_link.get_attribute("class") or ""
@@ -269,16 +270,17 @@ class Parser:
             print("Вагон успешно раскрыт, схема мест загружена!")
         else:
             print(f"Вагон '{target_carriage}' уже был открыт.")
-
         await panel.locator(".carriage__seat-number").get_by_text(seat.number.lstrip("0"), exact=True).click()
-        await page.get_by_role("link", name="Ввести данные пассажиров").click()
-        return page
 
 
-    async def place_an_order(self, page : Page, surname: str, name: str, midname: str, passNumber: str):
-        await page.get_by_role("textbox", name="Фамилия *").fill(surname)
-        await page.get_by_role("textbox", name="Имя *").fill(name)
-        await page.get_by_role("textbox", name="Отчество").fill(midname)
-        await page.get_by_role("textbox", name="Номер документа *").fill(passNumber)
-        await page.locator(".jq-checkbox").click()
-        await page.get_by_role("button", name="Оформить заказ").click()
+
+    async def place_an_order(self, surname: str, name: str, midname: str, passNumber: str) -> None:
+        await self.train_page.get_by_role("link", name="Ввести данные пассажиров").click()
+        await self.train_page.get_by_role("textbox", name="Фамилия *").fill(surname)
+        await self.train_page.get_by_role("textbox", name="Имя *").fill(name)
+        await self.train_page.get_by_role("textbox", name="Отчество").fill(midname)
+        await self.train_page.get_by_role("textbox", name="Номер документа *").fill(passNumber)
+        await self.train_page.locator(".jq-checkbox").click()
+
+        await self.train_page.pause()
+        # await self.train_page.get_by_role("button", name="Оформить заказ").click()
