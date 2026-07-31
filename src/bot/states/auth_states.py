@@ -13,5 +13,6 @@ class AccountData(StatesGroup):
 
 class Form(StatesGroup):
     personal_data = PersonalData
+    confirm_personal_data = State()
     account_data = AccountData
-    confirm = State()
+    confirm_account_data = State()

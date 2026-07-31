@@ -7,15 +7,12 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: add bot initialization and echo message handler">
-      <change afterPath="$PROJECT_DIR$/src/bot/authorization.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/handlers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/handlers/echo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/personal_data.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/states/__init__.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: add bot startup and routers logic">
+      <change afterPath="$PROJECT_DIR$/src/bot/handlers/start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/authorization.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/personal_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/states/auth_states.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,6 +84,8 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/bot/handlers" />
+      <recent name="$PROJECT_DIR$/src/bot/states" />
       <recent name="$PROJECT_DIR$/src/services" />
       <recent name="$PROJECT_DIR$/src/repository" />
       <recent name="$PROJECT_DIR$/src" />
@@ -211,7 +210,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785498236885</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: add bot startup and routers logic">
+      <option name="closed" value="true" />
+      <created>1785502403780</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1785502403780</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -236,7 +243,8 @@
     <MESSAGE value="feat: parsing chosen train, pick suitable seat, order a ticket" />
     <MESSAGE value="refactor: update booking functions to eliminate page dependency" />
     <MESSAGE value="feat: add bot initialization and echo message handler" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add bot initialization and echo message handler" />
+    <MESSAGE value="feat: add bot startup and routers logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add bot startup and routers logic" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
