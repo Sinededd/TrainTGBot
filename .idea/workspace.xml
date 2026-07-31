@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BackgroundAgentGlobalSettings">
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="refactor: booking a ticket function in not depend on page">
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="docs: add README.md">
+      <change afterPath="$PROJECT_DIR$/src/bot/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/bot/bot.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,17 +128,12 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python tests.Python tests for test.test_parser.test_check_available_seats" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-50341a9f1f9c-c2ffad84badb-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-261.26222.68" />
+        <option value="bundled-jdk-30f59d01ecdd-63390994e64e-intellij.indexing.shared.core-IU-262.8665.258" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.8665.258" />
       </set>
     </attachedChunks>
   </component>
@@ -186,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1784567498202</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="refactor: update booking functions to eliminate page dependency">
+      <option name="closed" value="true" />
+      <created>1784823820334</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1784823820334</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -209,7 +216,8 @@
     <MESSAGE value="feat: implement train repository with pickle serialization and getting available seats" />
     <MESSAGE value="feat: get available seats" />
     <MESSAGE value="feat: parsing chosen train, pick suitable seat, order a ticket" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: parsing chosen train, pick suitable seat, order a ticket" />
+    <MESSAGE value="refactor: update booking functions to eliminate page dependency" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: update booking functions to eliminate page dependency" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

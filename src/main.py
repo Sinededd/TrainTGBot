@@ -4,6 +4,7 @@ from datetime import date
 
 from playwright.async_api import async_playwright, Playwright
 
+from bot.bot import dp, bot
 from models.available_seats import AvailableSeats
 from services import seats_extractor
 from services.parser import Parser
@@ -50,4 +51,5 @@ async def main():
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    # asyncio.run(main())
+    dp.run_polling(bot)
