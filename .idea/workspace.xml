@@ -7,12 +7,14 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: add bot startup and routers logic">
-      <change afterPath="$PROJECT_DIR$/src/bot/handlers/start.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement user authentication flow with personal data collection">
+      <change afterPath="$PROJECT_DIR$/src/bot/utils/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/bot/utils/sender.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/authorization.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/personal_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/states/auth_states.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/states/auth_states.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/states/auth_states.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +220,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785502403780</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="feat: implement user authentication flow with personal data collection">
+      <option name="closed" value="true" />
+      <created>1785505394900</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1785505394900</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,7 +254,8 @@
     <MESSAGE value="refactor: update booking functions to eliminate page dependency" />
     <MESSAGE value="feat: add bot initialization and echo message handler" />
     <MESSAGE value="feat: add bot startup and routers logic" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add bot startup and routers logic" />
+    <MESSAGE value="feat: implement user authentication flow with personal data collection" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement user authentication flow with personal data collection" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

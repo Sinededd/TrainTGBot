@@ -5,7 +5,6 @@ from datetime import date
 from playwright.async_api import async_playwright, Playwright
 
 from bot.bot import start_bot
-from models.available_seats import AvailableSeats
 from services import seats_extractor
 from services.parser import Parser
 from repository.pickle_train_repository import PickleTrainRepository
