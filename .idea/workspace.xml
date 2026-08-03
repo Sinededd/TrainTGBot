@@ -7,11 +7,12 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers">
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat:">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/handlers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/handlers/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/states/auth_states.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/states/auth_states.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/utils/sender.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/utils/sender.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -241,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785574547041</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="feat: enhance personal data confirmation flow with reject handling">
+      <option name="closed" value="true" />
+      <created>1785748768733</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1785748768733</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -270,7 +279,8 @@
     <MESSAGE value="feat: implement user authentication flow with personal data collection" />
     <MESSAGE value="feat(auth): enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
     <MESSAGE value="feat: enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
+    <MESSAGE value="feat: enhance personal data confirmation flow with reject handling" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance personal data confirmation flow with reject handling" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

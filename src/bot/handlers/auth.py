@@ -9,7 +9,7 @@ from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
-from bot.states.auth_states import PersonalData, STATES_LIST, StateUI
+from bot.states.auth_states import AccountData, STATES_PERSONAL_LIST, StateUI
 from bot.utils.sender import send_state_ui
 
 router = Router()
@@ -37,16 +37,16 @@ async def cancel_handler(message: Message, state: FSMContext) -> None:
 
 def get_previous_state(current_state: str) -> tuple[Any, Any, Any]:
     current_state_index = next(
-        (i for i, obj in enumerate(STATES_LIST) if obj.state_name == current_state),
+        (i for i, obj in enumerate(STATES_PERSONAL_LIST) if obj.state_name == current_state),
         None,
     )
     previous_state_index = current_state_index - 1
     if previous_state_index < 0:
         return None, None, None
     return (
-        STATES_LIST[previous_state_index].state_name,
-        STATES_LIST[previous_state_index].state_question,
-        STATES_LIST[previous_state_index].keyboard_buttons,
+        STATES_PERSONAL_LIST[previous_state_index].state_name,
+        STATES_PERSONAL_LIST[previous_state_index].state_question,
+        STATES_PERSONAL_LIST[previous_state_index].keyboard_buttons,
     )
 
 
@@ -81,22 +81,27 @@ async def go_back_handler(message: Message, state: FSMContext) -> None:
 def get_buttons_for_states_excluding_confirm() -> List[Any]:
     return [
         state.state_corresponding_button
-        for state in STATES_LIST
-        if state.state_name != PersonalData.confirm and state.state_name is not None
+        for state in STATES_PERSONAL_LIST
+        if state.state_name != AccountData.confirm and state.state_name is not None
     ]
 
 
 # disapprove handler
-@router.message(PersonalData.confirm, F.text.casefold() == "отклонить")
+@router.message(AccountData.confirm, F.text.casefold() == "отклонить")
 async def process_dont_confirm(message: Message, state: FSMContext) -> None:
-    await state.set_state(PersonalData.confirm_reject)
+    await state.set_state(AccountData.confirm_reject)
+    keyboard_buttons = get_buttons_for_states_excluding_confirm()
     await message.answer(
         "Что заполнено неверно?",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [
                     KeyboardButton(text=button)
-                    for button in get_buttons_for_states_excluding_confirm()
+                    for button in keyboard_buttons[:(len(keyboard_buttons) + 1)//2]
+                ],
+                [
+                    KeyboardButton(text=button)
+                    for button in keyboard_buttons[(len(keyboard_buttons) + 1) // 2:]
                 ],
                 [
                     KeyboardButton(text="Отменить"),
@@ -106,12 +111,13 @@ async def process_dont_confirm(message: Message, state: FSMContext) -> None:
         ),
     )
 
-@router.message(PersonalData.confirm_reject, F.text.casefold() != "отменить")
+
+@router.message(AccountData.confirm_reject, F.text.casefold() != "отменить")
 async def process_reject(message: Message, state: FSMContext) -> None:
     required_state_index = next(
         (
             i
-            for i, obj in enumerate(STATES_LIST)
+            for i, obj in enumerate(STATES_PERSONAL_LIST)
             if obj.state_corresponding_button == message.text
         ),
         None,
@@ -121,7 +127,7 @@ async def process_reject(message: Message, state: FSMContext) -> None:
             "Я вас не понял. Пожалуйста повторите выбор."
         )
     else:
-        required_state = STATES_LIST[required_state_index]
+        required_state = STATES_PERSONAL_LIST[required_state_index]
         await state.update_data(reject=True)
         await state.set_state(required_state.state_name)
         await message.answer(
@@ -133,53 +139,16 @@ async def process_reject(message: Message, state: FSMContext) -> None:
         )
 
 
-# Handlers for each state
-
-@router.message(CommandStart())
-async def command_start(message: Message, state: FSMContext) -> None:
-    if (await state.get_data()).get("reject", False):
-        await confirmation_ui(message, state)
-    else:
-        await state.set_state(PersonalData.surname)
-        await send_state_ui(message, PersonalData.surname)
-
-@router.message(PersonalData.surname)
-async def process_surname(message: Message, state: FSMContext) -> None:
-    await state.update_data(surname=message.text)
-    if (await state.get_data()).get("reject", False):
-        await confirmation_ui(message, state)
-    else:
-        await state.set_state(PersonalData.name)
-        await send_state_ui(message, PersonalData.name)
-
-
-@router.message(PersonalData.name)
-async def process_name(message: Message, state: FSMContext) -> None:
-    await state.update_data(name=message.text)
-    if (await state.get_data()).get("reject", False):
-        await confirmation_ui(message, state)
-    else:
-        await state.set_state(PersonalData.patronymic)
-        await send_state_ui(message, PersonalData.patronymic)
-
-
-@router.message(PersonalData.patronymic)
-async def process_patronymic(message: Message, state: FSMContext) -> None:
-    await state.update_data(patronymic=message.text)
-    if (await state.get_data()).get("reject", False):
-        await confirmation_ui(message, state)
-    else:
-        await state.set_state(PersonalData.passport_number)
-        await send_state_ui(message, PersonalData.passport_number)
-
-
 async def confirmation_ui(message: Message, state: FSMContext):
-    await state.set_state(PersonalData.confirm)
+    """Send ui for confirmation form"""
+    await state.set_state(AccountData.confirm)
     data: Dict[str, Any] = await state.get_data()
     await message.answer(
         f"{html.bold('Пожалуйста, проверьте ваши данные:')}\n\n"
         f"ФИО: {html.quote(data['surname'])} {html.quote(data['name'])} {html.quote(data['patronymic'])}\n"
-        f"Номер паспорта: {html.quote(data['passport_number'])}\n",
+        f"Номер паспорта: {html.quote(data['passport_number'])}\n"
+        f"Логин: {html.quote(data['login'])}\n"
+        f"Пароль: {html.quote(data['password'])}\n",
         reply_markup=ReplyKeyboardMarkup(
             keyboard=[
                 [KeyboardButton(text="Подтвердить"), KeyboardButton(text="Отклонить")],
@@ -192,13 +161,74 @@ async def confirmation_ui(message: Message, state: FSMContext):
     )
 
 
-@router.message(PersonalData.passport_number)
+# Handlers for each state
+
+@router.message(CommandStart())
+async def command_start(message: Message, state: FSMContext) -> None:
+    if (await state.get_data()).get("reject", False):
+        await confirmation_ui(message, state)
+    else:
+        await state.set_state(AccountData.surname)
+        await send_state_ui(message, AccountData.surname)
+
+
+@router.message(AccountData.surname)
+async def process_surname(message: Message, state: FSMContext) -> None:
+    await state.update_data(surname=message.text)
+    if (await state.get_data()).get("reject", False):
+        await confirmation_ui(message, state)
+    else:
+        await state.set_state(AccountData.name)
+        await send_state_ui(message, AccountData.name)
+
+
+@router.message(AccountData.name)
+async def process_name(message: Message, state: FSMContext) -> None:
+    await state.update_data(name=message.text)
+    if (await state.get_data()).get("reject", False):
+        await confirmation_ui(message, state)
+    else:
+        await state.set_state(AccountData.patronymic)
+        await send_state_ui(message, AccountData.patronymic)
+
+
+@router.message(AccountData.patronymic)
+async def process_patronymic(message: Message, state: FSMContext) -> None:
+    await state.update_data(patronymic=message.text)
+    if (await state.get_data()).get("reject", False):
+        await confirmation_ui(message, state)
+    else:
+        await state.set_state(AccountData.passport_number)
+        await send_state_ui(message, AccountData.passport_number)
+
+
+@router.message(AccountData.passport_number)
 async def process_passport_number(message: Message, state: FSMContext) -> None:
     await state.update_data(passport_number=message.text)
+    if (await state.get_data()).get("reject", False):
+        await confirmation_ui(message, state)
+    else:
+        await state.set_state(AccountData.login)
+        await send_state_ui(message, AccountData.login)
+
+
+@router.message(AccountData.login)
+async def process_login(message: Message, state: FSMContext) -> None:
+    await state.update_data(login=message.text)
+    if (await state.get_data()).get("reject", False):
+        await confirmation_ui(message, state)
+    else:
+        await state.set_state(AccountData.password)
+        await send_state_ui(message, AccountData.password)
+
+
+@router.message(AccountData.password)
+async def process_password(message: Message, state: FSMContext) -> None:
+    await state.update_data(password=message.text)
     await confirmation_ui(message, state)
 
 
-@router.message(PersonalData.confirm, F.text.casefold() == "подтвердить")
+@router.message(AccountData.confirm, F.text.casefold() == "подтвердить")
 async def process_confirm(message: Message, state: FSMContext) -> None:
     await state.clear()
     await message.answer(

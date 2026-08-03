@@ -4,18 +4,15 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import KeyboardButton
 
 
-class PersonalData(StatesGroup):
+class AccountData(StatesGroup):
     name = State()
     surname = State()
     patronymic = State()
     passport_number = State()
-    confirm = State()
-    confirm_reject = State()
-
-
-class AccountData(StatesGroup):
     login = State()
     password = State()
+    confirm = State()
+    confirm_reject = State()
 
 
 @dataclass
@@ -27,9 +24,9 @@ class StateUI:
     keyboard_buttons: list[list[KeyboardButton]]
 
 
-STATES_LIST = [
+STATES_PERSONAL_LIST = [
     StateUI(
-        state_name=PersonalData.surname,
+        state_name=AccountData.surname,
         state_question="Введите свою фамилию:",
         state_in_memory_name="surname",
         state_corresponding_button="Фамилия",
@@ -38,7 +35,7 @@ STATES_LIST = [
         ]
     ),
     StateUI(
-        state_name=PersonalData.name,
+        state_name=AccountData.name,
         state_question="Введите свое имя:",
         state_in_memory_name="name",
         state_corresponding_button="Имя",
@@ -48,7 +45,7 @@ STATES_LIST = [
         ]
     ),
     StateUI(
-        state_name=PersonalData.patronymic,
+        state_name=AccountData.patronymic,
         state_question="Введите свое отчество:",
         state_in_memory_name="patronymic",
         state_corresponding_button="Отчество",
@@ -58,7 +55,7 @@ STATES_LIST = [
         ]
     ),
     StateUI(
-        state_name=PersonalData.passport_number,
+        state_name=AccountData.passport_number,
         state_question="Введите свой номер паспорта:",
         state_in_memory_name="passport_number",
         state_corresponding_button="Номер паспорта",
@@ -68,7 +65,27 @@ STATES_LIST = [
         ]
     ),
     StateUI(
-        state_name=PersonalData.confirm,
+        state_name=AccountData.login,
+        state_question="Введите логин:",
+        state_in_memory_name="login",
+        state_corresponding_button="Логин",
+        keyboard_buttons=[
+            [KeyboardButton(text="Назад")],
+            [KeyboardButton(text="Отменить")]
+        ]
+    ),
+    StateUI(
+        state_name=AccountData.password,
+        state_question="Введите пароль:",
+        state_in_memory_name="password",
+        state_corresponding_button="Пароль",
+        keyboard_buttons=[
+            [KeyboardButton(text="Назад")],
+            [KeyboardButton(text="Отменить")]
+        ]
+    ),
+    StateUI(
+        state_name=AccountData.confirm,
         state_question="",
         state_in_memory_name="",
         state_corresponding_button="",
