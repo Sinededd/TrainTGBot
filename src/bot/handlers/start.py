@@ -8,7 +8,6 @@ from bot.utils.sender import send_state_ui
 
 router = Router()
 
-@router.message(CommandStart())
-async def command_start(message: Message, state: FSMContext) -> None:
-    await state.set_state(PersonalData.surname)
-    await send_state_ui(message, PersonalData.surname)
+# @router.message(CommandStart())
+# async def command_start(message: Message, state: FSMContext) -> None:
+#

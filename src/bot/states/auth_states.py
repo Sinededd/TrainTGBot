@@ -10,6 +10,7 @@ class PersonalData(StatesGroup):
     patronymic = State()
     passport_number = State()
     confirm = State()
+    confirm_reject = State()
 
 
 class AccountData(StatesGroup):

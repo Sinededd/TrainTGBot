@@ -7,14 +7,11 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement user authentication flow with personal data collection">
-      <change afterPath="$PROJECT_DIR$/src/bot/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/bot/utils/sender.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/handlers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/auth.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/handlers/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/start.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/states/auth_states.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/states/auth_states.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,25 +58,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python tests.Python tests for test.test_parser.test_check_available_seats.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "python",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/denis/Study/TrainTGBot/test",
-    "node.js.detected.package.jshint": "true",
-    "node.js.selected.package.jshint": "",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests for test.test_parser.test_check_available_seats.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;python&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/denis/Study/TrainTGBot/test&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test" />
@@ -228,7 +225,23 @@
       <option name="project" value="LOCAL" />
       <updated>1785505394900</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat(auth): enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers">
+      <option name="closed" value="true" />
+      <created>1785574472526</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1785574472526</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat: enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers">
+      <option name="closed" value="true" />
+      <created>1785574547041</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1785574547041</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +268,9 @@
     <MESSAGE value="feat: add bot initialization and echo message handler" />
     <MESSAGE value="feat: add bot startup and routers logic" />
     <MESSAGE value="feat: implement user authentication flow with personal data collection" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement user authentication flow with personal data collection" />
+    <MESSAGE value="feat(auth): enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
+    <MESSAGE value="feat: enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
