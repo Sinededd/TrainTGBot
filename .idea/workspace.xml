@@ -7,11 +7,10 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat:">
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: refactor authentication state management, add login and password">
+      <change afterPath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/handlers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/auth.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/start.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/states/auth_states.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/states/auth_states.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/utils/sender.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/utils/sender.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,25 +58,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python tests.Python tests for test.test_parser.test_check_available_seats.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;python&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/denis/Study/TrainTGBot/test&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for test.test_parser.test_check_available_seats.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "python",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/denis/Study/TrainTGBot/test",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": "",
+    "nodejs_package_manager_path": "npm"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test" />
@@ -250,7 +250,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785748768733</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat: refactor authentication state management, add login and password">
+      <option name="closed" value="true" />
+      <created>1785751292240</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1785751292240</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -280,7 +288,8 @@
     <MESSAGE value="feat(auth): enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
     <MESSAGE value="feat: enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
     <MESSAGE value="feat: enhance personal data confirmation flow with reject handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: enhance personal data confirmation flow with reject handling" />
+    <MESSAGE value="feat: refactor authentication state management, add login and password" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: refactor authentication state management, add login and password" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

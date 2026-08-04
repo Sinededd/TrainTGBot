@@ -1,10 +1,14 @@
+import asyncio
 import logging
+import re
 
+from aiogram import Bot
 from aiogram import html, F
 from typing import Dict, Any, Generator, List
 
 from aiogram import Router
 from aiogram.enums import ParseMode
+from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
@@ -18,7 +22,7 @@ router = Router()
 # Cancelling and go back flows
 @router.message(Command("cancel"))
 @router.message(F.text.casefold() == "отменить")
-async def cancel_handler(message: Message, state: FSMContext) -> None:
+async def cancel_handler(message: Message, state: FSMContext, bot: Bot) -> None:
     """
     Allow user to cancel any action
     """
@@ -27,8 +31,11 @@ async def cancel_handler(message: Message, state: FSMContext) -> None:
     if current_state is None:
         return
 
+    await try_mask_confirmation_message(state, bot, message.chat.id)
+
     logging.info("Cancelling state %r", current_state)
     await state.clear()
+    await message.delete()
     await message.answer(
         "Галя отмена.",
         reply_markup=ReplyKeyboardRemove(),
@@ -52,17 +59,21 @@ def get_previous_state(current_state: str) -> tuple[Any, Any, Any]:
 
 @router.message(Command("go back"))
 @router.message(F.text.casefold() == "назад")
-async def go_back_handler(message: Message, state: FSMContext) -> None:
+async def go_back_handler(message: Message, state: FSMContext, bot: Bot) -> None:
     current_state = await state.get_state()
     if current_state is None:
         await message.answer("У вас нет активного процесса заполнения.")
         return
+
+    await try_mask_confirmation_message(state, bot, message.chat.id)
+
     logging.info("Going back from %r", current_state)
     (
         previous_state,
         state_message,
         keyboard_buttons
     ) = get_previous_state(current_state)
+    await message.delete()
     if previous_state is None:
         await message.answer(
             "Вы и так на первом шаге.",
@@ -85,12 +96,68 @@ def get_buttons_for_states_excluding_confirm() -> List[Any]:
         if state.state_name != AccountData.confirm and state.state_name is not None
     ]
 
+def generate_confirmation_text(data: Dict[str, Any], mask: bool = False) -> str:
+    """Generates a confirmation text based on the provided data. If mask=True, it hides the password and passport number."""
+    passport = str(data.get('passport_number', ''))
+    password = str(data.get('password', ''))
+
+    if mask:
+        passport = re.sub(r'\S', '*', passport) if passport else ''
+        password = '*' * len(password) if password else ''
+
+    return (
+        f"{html.bold('Пожалуйста, проверьте ваши данные:')}\n\n"
+        f"ФИО: {html.quote(str(data.get('surname', '')))} {html.quote(str(data.get('name', '')))} {html.quote(str(data.get('patronymic', '')))}\n"
+        f"Номер паспорта: {html.quote(passport)}\n"
+        f"Логин: {html.quote(str(data.get('login', '')))}\n"
+        f"Пароль: {html.quote(password)}\n"
+    )
+
+async def try_mask_confirmation_message(state: FSMContext, bot: Bot, chat_id: int):
+    """Safe hiding message if it hasn't been hidden yet."""
+    data = await state.get_data()
+    msg_id = data.get('confirmation_message_id')
+    is_masked = data.get('is_masked', False)
+
+    if msg_id and not is_masked:
+        new_text = generate_confirmation_text(data, mask=True)
+        try:
+            await bot.edit_message_text(
+                chat_id=chat_id,
+                message_id=msg_id,
+                text=new_text,
+                parse_mode=ParseMode.HTML
+            )
+        except TelegramBadRequest as e:
+            if "message is not modified" not in str(e).lower():
+                logging.warning(f"Не удалось отредактировать сообщение {msg_id}: {e}")
+        finally:
+            await state.update_data(is_masked=True)
+
+
+@router.message(AccountData.confirm)
+async def hide_confidential_data_confirmation_ui(message: Message, state: FSMContext, bot: Bot) -> None:
+    logging.info("Processing confirmation UI hiding")
+
+    await try_mask_confirmation_message(state, bot, message.chat.id)
+
+    if message.text:
+        text = message.text.casefold()
+        if text == "отклонить":
+            await process_dont_confirm(message, state)
+            return
+        elif text == "подтвердить":
+            await process_confirm(message, state)
+            return
+
+    await message.delete()
+
 
 # disapprove handler
-@router.message(AccountData.confirm, F.text.casefold() == "отклонить")
 async def process_dont_confirm(message: Message, state: FSMContext) -> None:
     await state.set_state(AccountData.confirm_reject)
     keyboard_buttons = get_buttons_for_states_excluding_confirm()
+    await message.delete()
     await message.answer(
         "Что заполнено неверно?",
         reply_markup=ReplyKeyboardMarkup(
@@ -111,6 +178,49 @@ async def process_dont_confirm(message: Message, state: FSMContext) -> None:
         ),
     )
 
+async def process_confirm(message: Message, state: FSMContext) -> None:
+    await state.clear()
+    await message.delete()
+    await message.answer(
+        "Спасибо за заполнение формы!",
+        reply_markup=ReplyKeyboardRemove(),
+    )
+
+
+async def confirmation_ui(message: Message, state: FSMContext, hide_previous_message: bool = False):
+    """Send ui for confirmation form"""
+    if hide_previous_message:
+        await message.delete()
+        await message.answer(text="Данные скрыты")
+
+    await state.set_state(AccountData.confirm)
+    data = await state.get_data()
+
+    # Генерируем открытый текст
+    text = generate_confirmation_text(data, mask=False)
+
+    sent_msg = await message.answer(
+        text,
+        parse_mode=ParseMode.HTML
+    )
+
+    await message.answer(
+        text="Пожалуйста, подтвердите или отклоните данные.",
+        reply_markup=ReplyKeyboardMarkup(
+            keyboard=[
+                [KeyboardButton(text="Подтвердить"), KeyboardButton(text="Отклонить")],
+                [KeyboardButton(text="Назад")],
+                [KeyboardButton(text="Отменить")],
+            ],
+            resize_keyboard=True,
+        ),
+    )
+
+    await state.update_data(
+        confirmation_message_id=sent_msg.message_id,
+        is_masked=False
+    )
+
 
 @router.message(AccountData.confirm_reject, F.text.casefold() != "отменить")
 async def process_reject(message: Message, state: FSMContext) -> None:
@@ -122,6 +232,7 @@ async def process_reject(message: Message, state: FSMContext) -> None:
         ),
         None,
     )
+    await message.delete()
     if required_state_index is None:
         await message.answer(
             "Я вас не понял. Пожалуйста повторите выбор."
@@ -137,28 +248,6 @@ async def process_reject(message: Message, state: FSMContext) -> None:
                 resize_keyboard=True,
             ),
         )
-
-
-async def confirmation_ui(message: Message, state: FSMContext):
-    """Send ui for confirmation form"""
-    await state.set_state(AccountData.confirm)
-    data: Dict[str, Any] = await state.get_data()
-    await message.answer(
-        f"{html.bold('Пожалуйста, проверьте ваши данные:')}\n\n"
-        f"ФИО: {html.quote(data['surname'])} {html.quote(data['name'])} {html.quote(data['patronymic'])}\n"
-        f"Номер паспорта: {html.quote(data['passport_number'])}\n"
-        f"Логин: {html.quote(data['login'])}\n"
-        f"Пароль: {html.quote(data['password'])}\n",
-        reply_markup=ReplyKeyboardMarkup(
-            keyboard=[
-                [KeyboardButton(text="Подтвердить"), KeyboardButton(text="Отклонить")],
-                [KeyboardButton(text="Назад")],
-                [KeyboardButton(text="Отменить")],
-            ],
-            resize_keyboard=True,
-        ),
-        parse_mode=ParseMode.HTML
-    )
 
 
 # Handlers for each state
@@ -206,10 +295,10 @@ async def process_patronymic(message: Message, state: FSMContext) -> None:
 async def process_passport_number(message: Message, state: FSMContext) -> None:
     await state.update_data(passport_number=message.text)
     if (await state.get_data()).get("reject", False):
-        await confirmation_ui(message, state)
+        await confirmation_ui(message, state, True)
     else:
         await state.set_state(AccountData.login)
-        await send_state_ui(message, AccountData.login)
+        await send_state_ui(message, AccountData.login, True)
 
 
 @router.message(AccountData.login)
@@ -225,13 +314,4 @@ async def process_login(message: Message, state: FSMContext) -> None:
 @router.message(AccountData.password)
 async def process_password(message: Message, state: FSMContext) -> None:
     await state.update_data(password=message.text)
-    await confirmation_ui(message, state)
-
-
-@router.message(AccountData.confirm, F.text.casefold() == "подтвердить")
-async def process_confirm(message: Message, state: FSMContext) -> None:
-    await state.clear()
-    await message.answer(
-        "Спасибо за заполнение формы!",
-        reply_markup=ReplyKeyboardRemove(),
-    )
+    await confirmation_ui(message, state, True)
