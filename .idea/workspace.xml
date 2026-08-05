@@ -7,10 +7,15 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement user registration with SQLite repository">
-      <change afterPath="$PROJECT_DIR$/src/utils/crypto.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement encryption for sensitive user data">
+      <change afterPath="$PROJECT_DIR$/src/bot/handlers/search_train.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/bot/states/search_train_state.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/convert_data.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/tariffs.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/tariffs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/models/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -273,7 +278,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785926865889</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat: implement encryption for sensitive user data">
+      <option name="closed" value="true" />
+      <created>1785928395462</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1785928395462</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -306,7 +319,8 @@
     <MESSAGE value="feat: refactor authentication state management, add login and password" />
     <MESSAGE value="feat: enhance confirmation flow by masking sensitive data and improving state management" />
     <MESSAGE value="feat: implement user registration with SQLite repository" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement user registration with SQLite repository" />
+    <MESSAGE value="feat: implement encryption for sensitive user data" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement encryption for sensitive user data" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
