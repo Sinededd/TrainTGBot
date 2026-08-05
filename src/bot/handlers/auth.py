@@ -15,6 +15,8 @@ from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, ReplyKey
 
 from bot.states.auth_states import AccountData, STATES_PERSONAL_LIST, StateUI
 from bot.utils.sender import send_state_ui
+from models.user import User
+from services.user_service import UserService
 
 router = Router()
 
@@ -136,7 +138,7 @@ async def try_mask_confirmation_message(state: FSMContext, bot: Bot, chat_id: in
 
 
 @router.message(AccountData.confirm)
-async def hide_confidential_data_confirmation_ui(message: Message, state: FSMContext, bot: Bot) -> None:
+async def hide_confidential_data_confirmation_ui(message: Message, state: FSMContext, bot: Bot, user_service: UserService) -> None:
     logging.info("Processing confirmation UI hiding")
 
     await try_mask_confirmation_message(state, bot, message.chat.id)
@@ -147,7 +149,7 @@ async def hide_confidential_data_confirmation_ui(message: Message, state: FSMCon
             await process_dont_confirm(message, state)
             return
         elif text == "подтвердить":
-            await process_confirm(message, state)
+            await process_confirm(message, state, user_service)
             return
 
     await message.delete()
@@ -178,13 +180,26 @@ async def process_dont_confirm(message: Message, state: FSMContext) -> None:
         ),
     )
 
-async def process_confirm(message: Message, state: FSMContext) -> None:
-    await state.clear()
+async def process_confirm(message: Message, state: FSMContext, user_service: UserService) -> None:
     await message.delete()
-    await message.answer(
-        "Спасибо за заполнение формы!",
-        reply_markup=ReplyKeyboardRemove(),
+
+    data = await state.get_data()
+    user = User(
+        id=message.chat.id,
+        surname=str(data.get('surname')),
+        name=str(data.get('name')),
+        patronymic=str(data.get('patronymic')),
+        passport_number=str(data.get('passport_number')),
+        login=str(data.get('login')),
+        password=str(data.get('password'))
     )
+
+    await state.clear()
+
+    if await user_service.register_user(user):
+        await message.answer("Регистрация прошла успешно!", reply_markup=ReplyKeyboardRemove())
+    else:
+        await message.answer("Данный пользователь уже зарегистрирован.", reply_markup=ReplyKeyboardRemove())
 
 
 async def confirmation_ui(message: Message, state: FSMContext, hide_previous_message: bool = False):

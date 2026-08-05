@@ -4,7 +4,7 @@ from src.models.train import Train
 
 
 class TrainRepository(ABC):
-    """Интерфейс для доступа к хранилищу поездов"""
+    """Interface for train repository"""
 
     @abstractmethod
     def get_by_id(self, train_id: str) -> Train:

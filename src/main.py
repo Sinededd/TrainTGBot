@@ -1,13 +1,16 @@
 import asyncio
 import json
+import logging
 from datetime import date
 
 from playwright.async_api import async_playwright, Playwright
 
 from bot.bot import start_bot
+from db.sqlite_user_repository import SQLiteUserRepository
 from services import seats_extractor
 from services.parser import Parser
 from repository.pickle_train_repository import PickleTrainRepository
+from services.user_service import UserService
 
 
 async def run(playwright: Playwright) -> None:
@@ -45,10 +48,20 @@ async def run(playwright: Playwright) -> None:
 
 
 async def main():
-    async with async_playwright() as playwright:
-        await run(playwright)
+    # Configure logging
+    logging.basicConfig(level=logging.DEBUG)
+
+    # Configure db
+    user_repo = SQLiteUserRepository(db_path="database.db")
+    await user_repo.init_db()
+    user_service = UserService(user_repo=user_repo)
+
+    #Start bot
+    await start_bot(user_service=user_service)
+
+    # async with async_playwright() as playwright:
+    #     await run(playwright)
 
 
 if __name__ == '__main__':
-    # asyncio.run(main())
-    asyncio.run(start_bot())
+    asyncio.run(main())

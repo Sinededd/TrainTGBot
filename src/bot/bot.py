@@ -5,12 +5,10 @@ from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 
 from bot.handlers import handlers_router
+from services.user_service import UserService
 
 
-async def start_bot():
-    # Configure logging
-    logging.basicConfig(level=logging.INFO)
-
+async def start_bot(user_service: UserService):
     # Initialize bot and dispatcher
     load_dotenv()
     api_token = os.getenv("API_TOKEN")
@@ -18,6 +16,8 @@ async def start_bot():
         raise ValueError("API_TOKEN not found in .env file")
     bot = Bot(token=api_token)
     dp = Dispatcher()
+
+    dp["user_service"] = user_service
 
     #registration routers
     dp.include_router(handlers_router)
