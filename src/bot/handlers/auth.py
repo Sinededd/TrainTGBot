@@ -17,6 +17,7 @@ from bot.states.auth_states import AccountData, STATES_PERSONAL_LIST, StateUI
 from bot.utils.sender import send_state_ui
 from models.user import User
 from services.user_service import UserService
+from utils.crypto import encrypt_text
 
 router = Router()
 
@@ -189,9 +190,9 @@ async def process_confirm(message: Message, state: FSMContext, user_service: Use
         surname=str(data.get('surname')),
         name=str(data.get('name')),
         patronymic=str(data.get('patronymic')),
-        passport_number=str(data.get('passport_number')),
+        passport_number=encrypt_text(str(data.get('passport_number'))),
         login=str(data.get('login')),
-        password=str(data.get('password'))
+        password=encrypt_text(str(data.get('password')))
     )
 
     await state.clear()

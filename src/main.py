@@ -3,6 +3,7 @@ import json
 import logging
 from datetime import date
 
+from dotenv import load_dotenv
 from playwright.async_api import async_playwright, Playwright
 
 from bot.bot import start_bot
