@@ -8,17 +8,17 @@ class Train:
         self.train_number = train_number
         self.date = date_
         self.route = route
-        self.dep_time = dep_time
-        self.dep_station = dep_station
-        self.arr_time = arr_time
-        self.arr_station = arr_station
+        self.from_time = dep_time
+        self.from_station = dep_station
+        self.to_time = arr_time
+        self.to_station = arr_station
         self.duration = duration
         self.id = train_id
         self.tariffs = tariffs
 
 
     def __repr__(self):
-        return f"Train({self.train_number}: {self.route} | {self.dep_time} -> {self.arr_time})"
+        return f"Train({self.train_number}: {self.route} | {self.from_time} -> {self.to_time})"
 
 
     def to_html(self) -> str:
@@ -26,10 +26,10 @@ class Train:
 
         t_num = html.escape(str(self.train_number))
         r = html.escape(str(self.route))
-        dep_s = html.escape(str(self.dep_station))
-        dep_t = html.escape(str(self.dep_time))
-        arr_s = html.escape(str(self.arr_station))
-        arr_t = html.escape(str(self.arr_time))
+        dep_s = html.escape(str(self.from_station))
+        dep_t = html.escape(str(self.from_time))
+        arr_s = html.escape(str(self.to_station))
+        arr_t = html.escape(str(self.to_time))
         dur = html.escape(str(self.duration))
 
         return (

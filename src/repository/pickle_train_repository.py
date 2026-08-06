@@ -17,7 +17,7 @@ class PickleTrainRepository(TrainRepository):
         except FileNotFoundError:
             return None
 
-    def save(self, train):
+    def add(self, train):
         try:
             with open(self.filename, 'rb') as f:
                 trains = pickle.load(f)

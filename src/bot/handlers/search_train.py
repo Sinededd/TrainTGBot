@@ -6,6 +6,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
+from bot.handlers.train_callback import TrainSubscribeCallback, get_train_keyboard
 from bot.states.search_train_state import SearchParams
 from services.parser import get_trains
 from utils.convert_data import convert_to_iso
@@ -25,11 +26,13 @@ async def process_from_station(message: Message, state: FSMContext) -> None:
     await state.set_state(SearchParams.to_station)
     await message.answer(text="Введите станцию прибытия:")
 
+
 @router.message(SearchParams.to_station)
 async def process_to_station(message: Message, state: FSMContext) -> None:
     await state.update_data(to_station=message.text)
     await state.set_state(SearchParams.date)
     await message.answer(text="Введите дату отправления:")
+
 
 @router.message(SearchParams.date)
 async def process_date(message: Message, state: FSMContext) -> None:
@@ -47,17 +50,7 @@ async def process_date(message: Message, state: FSMContext) -> None:
         await message.answer(
             train.to_html(),
             parse_mode=ParseMode.HTML,
-            reply_markup=InlineKeyboardMarkup(
-                inline_keyboard=[
-                    [
-                        InlineKeyboardButton(
-                            text="Подписаться",
-                            callback_data=f"subscribe:{train.id}"
-                        )
-                    ]
-                ]
-            )
+            reply_markup=get_train_keyboard(train.id, False)
         )
 
-    await state.clear()
-
+        await state.clear()

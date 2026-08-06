@@ -8,10 +8,8 @@ class TrainRepository(ABC):
 
     @abstractmethod
     def get_by_id(self, train_id: str) -> Train:
-        """Получить поезд по ID"""
         pass
 
     @abstractmethod
-    def save(self, train: Train) -> None:
-        """Сохранить поезд"""
+    def add(self, train: Train) -> None:
         pass

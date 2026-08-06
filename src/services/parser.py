@@ -190,12 +190,12 @@ class Parser:
 
         # Create and send request
         dt = datetime.strptime(
-            f"{train.date} {train.dep_time}",
+            f"{train.date} {train.from_time}",
             "%Y-%m-%d %H:%M"
         )
         params = {
-            "from": train.dep_station,
-            "to": train.arr_station,
+            "from": train.from_station,
+            "to": train.to_station,
             "date": train.date,
             "train_number": train.train_number,
             "car_type": "2",                    # !!! Пользователь должен иметь возможно устанавливать приоритет  типов вагона или отключать ненужные
@@ -220,10 +220,10 @@ class Parser:
         train = self.trainRepository.get_by_id(train_id)
 
         params = {
-            "from": train.dep_station,
+            "from": train.from_station,
             "from_exp": "",
             "from_esr": "",
-            "to": train.arr_station,
+            "to": train.to_station,
             "to_exp": "",
             "to_esr": "",
             "front_date": "",
