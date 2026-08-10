@@ -1,6 +1,6 @@
 import logging
 
-from models.user import User
+from domain.models.user import User
 from repository.user_repository import UserRepository
 
 

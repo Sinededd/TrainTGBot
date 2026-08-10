@@ -1,7 +1,7 @@
 from typing import Sequence
 
-from db.connection import get_db, DEFAULT_DB_PATH
-from models.user import User
+from infrastructure.db.connection import get_db, DEFAULT_DB_PATH
+from domain.models.user import User
 from repository.user_repository import UserRepository
 
 

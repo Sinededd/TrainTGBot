@@ -1,6 +1,6 @@
-from models.train import Train
+from domain.models.train import Train
 from repository.train_repository import TrainRepository
-from services.parser import Parser
+from infrastructure.parser.rw_parser import Parser
 
 
 class TrainService:

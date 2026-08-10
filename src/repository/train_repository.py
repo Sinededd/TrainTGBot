@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 
-from dto.train_entity import TrainEntity
-from src.models.train import Train
+from domain.dto.train_entity import TrainEntity
+from domain.models.train import Train
 
 
 class TrainRepository(ABC):

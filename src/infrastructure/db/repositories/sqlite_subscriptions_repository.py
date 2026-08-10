@@ -1,6 +1,6 @@
 from typing import List
 
-from db.connection import DEFAULT_DB_PATH, get_db
+from infrastructure.db.connection import DEFAULT_DB_PATH, get_db
 from repository.subscriptions_repository import SubscriptionsRepository
 
 

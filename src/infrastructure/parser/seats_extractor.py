@@ -1,6 +1,6 @@
 from typing import Dict
 
-from models.available_seats import AvailableSeats
+from domain.models.available_seats import AvailableSeats
 
 
 def extract_seats(json_data: Dict) -> AvailableSeats:

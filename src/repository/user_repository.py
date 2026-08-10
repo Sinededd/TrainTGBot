@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Sequence
 
-from models.user import User
+from domain.models.user import User
 
 
 class UserRepository(ABC):

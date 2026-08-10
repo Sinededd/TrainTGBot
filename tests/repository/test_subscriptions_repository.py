@@ -1,12 +1,12 @@
 import pytest
 import pytest_asyncio
 
-from db.connection import init_db
-from db.sqlite_subscriptions_repository import SQLiteSubscriptionsRepository
-from db.sqlite_train_repository import SQLiteTrainRepository
-from db.sqlite_user_repository import SQLiteUserRepository
-from models.train import Train
-from models.user import User
+from infrastructure.db.connection import init_db
+from infrastructure.db.repositories.sqlite_subscriptions_repository import SQLiteSubscriptionsRepository
+from infrastructure.db.repositories.sqlite_train_repository import SQLiteTrainRepository
+from infrastructure.db.repositories.sqlite_user_repository import SQLiteUserRepository
+from domain.models.train import Train
+from domain.models.user import User
 
 
 @pytest_asyncio.fixture

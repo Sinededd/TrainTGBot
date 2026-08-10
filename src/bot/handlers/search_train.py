@@ -1,15 +1,12 @@
-import logging
-
 from aiogram import Router
 from aiogram.enums import ParseMode
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import Message
 
-from bot.handlers.train_callback import TrainSubscribeCallback, get_train_keyboard
+from bot.handlers.train_callback import get_train_keyboard
 from bot.states.search_train_state import SearchParams
-from exceptions import NoTrainsFoundException
-from services.parser import Parser
+from domain.exceptions import NoTrainsFoundException
 from services.train_service import TrainService
 from utils.convert_date_time import convert_to_iso
 

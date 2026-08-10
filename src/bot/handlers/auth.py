@@ -1,10 +1,9 @@
-import asyncio
 import logging
 import re
 
 from aiogram import Bot
 from aiogram import html, F
-from typing import Dict, Any, Generator, List
+from typing import Dict, Any, List
 
 from aiogram import Router
 from aiogram.enums import ParseMode
@@ -13,11 +12,11 @@ from aiogram.filters import Command, CommandStart
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
-from bot.states.auth_states import AccountData, STATES_PERSONAL_LIST, StateUI
-from bot.utils.sender import send_state_ui
-from models.user import User
+from bot.states.auth_states import AccountData, STATES_PERSONAL_LIST
+from bot.handlers.auth_views import send_state_ui
+from domain.models.user import User
 from services.user_service import UserService
-from utils.crypto import encrypt_text
+from infrastructure.crypto import encrypt_text
 
 router = Router()
 

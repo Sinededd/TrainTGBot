@@ -9,12 +9,12 @@ from typing import Dict
 import httpx
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
-from playwright.async_api import BrowserContext, expect, Page
+from playwright.async_api import BrowserContext, expect
 
-from models.available_seats import Seat
-from models.tariffs import Tariffs
-from models.train import Train
-from exceptions import NoTrainsFoundException
+from domain.models.available_seats import Seat
+from domain.models.tariffs import Tariffs
+from domain.models.train import Train
+from domain.exceptions import NoTrainsFoundException
 
 load_dotenv()
 

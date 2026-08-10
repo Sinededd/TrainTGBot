@@ -1,8 +1,8 @@
 import pytest
 import pytest_asyncio
-from db.connection import init_db
-from db.sqlite_train_repository import SQLiteTrainRepository
-from models.train import Train
+from domain.models.train import Train
+from infrastructure.db.connection import init_db
+from infrastructure.db.repositories.sqlite_train_repository import SQLiteTrainRepository
 
 
 @pytest_asyncio.fixture

@@ -1,7 +1,7 @@
-from db.connection import DEFAULT_DB_PATH, get_db
-from dto.train_entity import TrainEntity
-from dto.train_mapper import TrainMapper
-from models.train import Train
+from infrastructure.db.connection import DEFAULT_DB_PATH, get_db
+from domain.dto.train_entity import TrainEntity
+from domain.dto.train_mapper import TrainMapper
+from domain.models.train import Train
 from repository.train_repository import TrainRepository
 
 

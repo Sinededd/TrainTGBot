@@ -1,6 +1,6 @@
 import json
 
-from src.models.train import Train
+from domain.models.train import Train
 
 
 def save_train(train, filename):

@@ -1,17 +1,15 @@
 import asyncio
 import json
 import logging
-from datetime import date
 
-from dotenv import load_dotenv
-from playwright.async_api import async_playwright, Playwright
+from playwright.async_api import Playwright
 
 from bot.bot import start_bot
-from db.connection import init_db
-from db.sqlite_train_repository import SQLiteTrainRepository
-from db.sqlite_user_repository import SQLiteUserRepository
-from services import seats_extractor
-from services.parser import Parser
+from infrastructure.db.connection import init_db
+from infrastructure.db.repositories.sqlite_train_repository import SQLiteTrainRepository
+from infrastructure.db.repositories.sqlite_user_repository import SQLiteUserRepository
+from infrastructure.parser import seats_extractor
+from infrastructure.parser.rw_parser import Parser
 from services.train_service import TrainService
 from services.user_service import UserService
 

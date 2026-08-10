@@ -1,5 +1,5 @@
-from dto.train_entity import TrainEntity
-from models.train import Train
+from domain.dto.train_entity import TrainEntity
+from domain.models.train import Train
 from utils.convert_date_time import get_datetime_iso
 
 
