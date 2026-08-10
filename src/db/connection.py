@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 
 import aiosqlite
 
-DEFAULT_DB_PATH = "database.db"
+DEFAULT_DB_PATH = "../database.db"
 
 
 @asynccontextmanager

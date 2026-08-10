@@ -7,24 +7,12 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement train subscribe button">
-      <change afterPath="$PROJECT_DIR$/src/db/connection.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/db/sqlite_train_repository.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/train_entity.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dto/train_mapper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/repository/test_train_repository.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement SQLite train repository and database initialization">
+      <change afterPath="$PROJECT_DIR$/src/db/sqlite_subscriptions_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/subscriptions_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/repository/test_subscriptions_repository.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/search_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/search_train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/sqlite_user_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/sqlite_user_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/pickle_train_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/pickle_train_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/train_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/train_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/convert_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/convert_date_time.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/services/test_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/connection.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,12 +62,19 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for repository.test_subscriptions_repository.TestSubscriptionsRepository.executor": "Run",
+    "Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_check_subscription.executor": "Run",
+    "Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_delete_subscription.executor": "Run",
+    "Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_get_subscription.executor": "Run",
     "Python tests.Python tests for repository.test_train_repository.test_add_and_get_train.executor": "Run",
     "Python tests.Python tests for services.test_parser.TestGetTrainsFunction.executor": "Run",
     "Python tests.Python tests for services.test_parser.TestParser.executor": "Run",
     "Python tests.Python tests for services.test_parser.TestParser.test_get_train_data_generates_correct_url.executor": "Run",
+    "Python tests.Python tests for services.test_parser.TestParserClass.test_choose_train_success.executor": "Run",
+    "Python tests.Python tests for services.test_parser.TestParserClass.test_login_success.executor": "Run",
     "Python tests.Python tests for test.test_parser.test_check_available_seats.executor": "Run",
     "Python tests.Python tests in test_parser.py.executor": "Run",
+    "Python tests.Python tests in test_subscriptions_repository.py.executor": "Run",
     "Python tests.Python tests in tests.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -95,7 +90,7 @@
     "node.js.detected.package.jshint": "true",
     "node.js.selected.package.jshint": "",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -111,8 +106,8 @@
       <recent name="$PROJECT_DIR$/src/services" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Python tests for services.test_parser.TestParserClass.test_choose_train_success">
-    <configuration name="Python tests for services.test_parser.TestGetTrainsFunction" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Python tests in test_subscriptions_repository.py">
+    <configuration name="Python tests for repository.test_subscriptions_repository.TestSubscriptionsRepository" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TrainTGBot" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -125,11 +120,11 @@
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <option name="RUN_TOOL" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;services.test_parser.TestGetTrainsFunction&quot;" />
+      <option name="_new_target" value="&quot;repository.test_subscriptions_repository.TestSubscriptionsRepository&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for services.test_parser.TestParserClass.test_choose_train_success" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for repository.test_subscriptions_repository.test_add_and_check_subscription" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TrainTGBot" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -142,11 +137,11 @@
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <option name="RUN_TOOL" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;services.test_parser.TestParserClass.test_choose_train_success&quot;" />
+      <option name="_new_target" value="&quot;repository.test_subscriptions_repository.test_add_and_check_subscription&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests for services.test_parser.TestParserClass.test_login_success" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for repository.test_subscriptions_repository.test_add_and_delete_subscription" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TrainTGBot" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -159,11 +154,11 @@
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <option name="RUN_TOOL" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;services.test_parser.TestParserClass.test_login_success&quot;" />
+      <option name="_new_target" value="&quot;repository.test_subscriptions_repository.test_add_and_delete_subscription&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests in test_parser.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests for repository.test_subscriptions_repository.test_add_and_get_subscription" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TrainTGBot" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -176,11 +171,11 @@
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <option name="RUN_TOOL" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/services/test_parser.py&quot;" />
-      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <option name="_new_target" value="&quot;repository.test_subscriptions_repository.test_add_and_get_subscription&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Python tests in tests" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+    <configuration name="Python tests in test_subscriptions_repository.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TrainTGBot" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -193,17 +188,17 @@
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <option name="RUN_TOOL" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/repository/test_subscriptions_repository.py&quot;" />
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.Python tests for services.test_parser.TestParserClass.test_choose_train_success" />
-        <item itemvalue="Python tests.Python tests for services.test_parser.TestParserClass.test_login_success" />
-        <item itemvalue="Python tests.Python tests in test_parser.py" />
-        <item itemvalue="Python tests.Python tests for services.test_parser.TestGetTrainsFunction" />
-        <item itemvalue="Python tests.Python tests in tests" />
+        <item itemvalue="Python tests.Python tests in test_subscriptions_repository.py" />
+        <item itemvalue="Python tests.Python tests for repository.test_subscriptions_repository.TestSubscriptionsRepository" />
+        <item itemvalue="Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_get_subscription" />
+        <item itemvalue="Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_delete_subscription" />
+        <item itemvalue="Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_check_subscription" />
       </list>
     </recent_temporary>
   </component>
@@ -366,7 +361,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786008354347</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="feat: implement SQLite train repository and database initialization">
+      <option name="closed" value="true" />
+      <created>1786349704269</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1786349704269</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -402,7 +405,8 @@
     <MESSAGE value="feat: implement encryption for sensitive user data" />
     <MESSAGE value="feat: add train search functionality" />
     <MESSAGE value="feat: implement train subscribe button" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement train subscribe button" />
+    <MESSAGE value="feat: implement SQLite train repository and database initialization" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement SQLite train repository and database initialization" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>
