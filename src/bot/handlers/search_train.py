@@ -5,6 +5,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
 from bot.handlers.train_callback import get_train_keyboard
+from bot.handlers.train_views import send_trains
 from bot.states.search_train_state import SearchParams
 from domain.exceptions import NoTrainsFoundException
 from services.subscriptions_service import SubscriptionsService
@@ -48,16 +49,7 @@ async def process_date(message: Message, state: FSMContext, train_service: Train
 
     try:
         trains = await train_service.search_trains(from_station, to_station, date)
-        if not trains:
-            await message.answer("Поездов не найдено")
-            return
-
-        for train in trains:
-            await message.answer(
-                train.to_html(),
-                parse_mode=ParseMode.HTML,
-                reply_markup=get_train_keyboard(train.id, await subscriptions_service.check_subscription(message.chat.id, train.id)),
-            )
+        await send_trains(message, subscriptions_service, trains)
 
     except NoTrainsFoundException as e:
         await message.answer(str(e))

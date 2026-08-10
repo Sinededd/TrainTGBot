@@ -41,7 +41,8 @@ class SQLiteSubscriptionsRepository(SubscriptionsRepository):
                 "SELECT train_id FROM subscriptions WHERE user_id=?",
                 (user_id,)
             )
-            return await cursor.fetchall()
+            rows = await cursor.fetchall()
+            return [row[0] for row in rows]
 
     async def get_all_by_train_id(self, train_id: str) -> List[int]:
         async with get_db(self.db_path) as db:
@@ -49,4 +50,5 @@ class SQLiteSubscriptionsRepository(SubscriptionsRepository):
                 "SELECT user_id FROM subscriptions WHERE train_id=?",
                 (train_id,)
             )
-            return await cursor.fetchall()
+            rows = await cursor.fetchall()
+            return [row[0] for row in rows]

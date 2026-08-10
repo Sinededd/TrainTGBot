@@ -2,38 +2,17 @@ from venv import logger
 
 from aiogram import Router
 from aiogram.filters.callback_data import CallbackData
-from aiogram.types import CallbackQuery, InlineKeyboardMarkup, Message
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import CallbackQuery, Message
 
+from bot.handlers.train_views import get_train_keyboard, TrainSubscribeCallback
 from services.subscriptions_service import SubscriptionsService
 
 router = Router()
 
 
-class TrainSubscribeCallback(CallbackData, prefix="sub_train"):
-    train_id: str
-    is_subscribed: bool
-
-
-def get_train_keyboard(train_id: str, is_subscribed: bool) -> InlineKeyboardMarkup:
-    builder = InlineKeyboardBuilder()
-
-    if is_subscribed:
-        builder.button(
-            text="🔕 Отписаться",
-            callback_data=TrainSubscribeCallback(train_id=train_id, is_subscribed=True).pack()
-        )
-    else:
-        builder.button(
-            text="🔔 Подписаться",
-            callback_data=TrainSubscribeCallback(train_id=train_id, is_subscribed=False).pack()
-        )
-
-    return builder.as_markup()
-
-
 @router.callback_query(TrainSubscribeCallback.filter())
-async def toggle_subscription(callback: CallbackQuery, callback_data: TrainSubscribeCallback, subscriptions_service: SubscriptionsService):
+async def toggle_subscription(callback: CallbackQuery, callback_data: TrainSubscribeCallback,
+                              subscriptions_service: SubscriptionsService):
     new_status = not callback_data.is_subscribed
 
     new_keyboard = get_train_keyboard(

@@ -60,7 +60,7 @@ async def main():
     train_repo = SQLiteTrainRepository()
     train_service = TrainService(train_repo=train_repo)
     subscriptions_repo = SQLiteSubscriptionsRepository()
-    subscriptions_service = SubscriptionsService(subscriptions_repo=subscriptions_repo)
+    subscriptions_service = SubscriptionsService(subscriptions_repo=subscriptions_repo, train_service=train_service)
 
     #Start bot
     await start_bot(user_service=user_service, train_service=train_service, subscriptions_service=subscriptions_service)

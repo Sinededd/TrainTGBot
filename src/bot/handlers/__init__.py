@@ -1,6 +1,6 @@
 from aiogram import Router
 
-from bot.handlers import echo, start, auth, search_train, train_callback
+from bot.handlers import echo, start, auth, search_train, train_callback, subscriptions
 
 handlers_router = Router()
 handlers_router.include_routers(
@@ -9,4 +9,5 @@ handlers_router.include_routers(
     auth.router,
     search_train.router,
     train_callback.router,
+    subscriptions.router,
 )
