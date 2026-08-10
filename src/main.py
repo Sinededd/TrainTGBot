@@ -8,10 +8,11 @@ from playwright.async_api import async_playwright, Playwright
 
 from bot.bot import start_bot
 from db.connection import init_db
+from db.sqlite_train_repository import SQLiteTrainRepository
 from db.sqlite_user_repository import SQLiteUserRepository
 from services import seats_extractor
 from services.parser import Parser
-from repository.pickle_train_repository import PickleTrainRepository
+from services.train_service import TrainService
 from services.user_service import UserService
 
 
@@ -19,12 +20,11 @@ async def run(playwright: Playwright) -> None:
     browser = await playwright.chromium.launch(headless=False, slow_mo=100)
     context = await browser.new_context()
 
-    pickle_tr_repo = PickleTrainRepository("trains.pkl")
-    parser = Parser(context, pickle_tr_repo)
+    parser = Parser(context)
     await parser.login()
 
     # ---------------------
-    # trains = await parser.get_trains("Минск", "Лунинец", date(2026, 7, 25))
+    # trains = await Parser.get_trains("Минск", "Лунинец", date(2026, 7, 25))
     # for train in trains:
     #     pickle_tr_repo.save(train)
     #     print(train)
@@ -57,9 +57,11 @@ async def main():
     await init_db()
     user_repo = SQLiteUserRepository()
     user_service = UserService(user_repo=user_repo)
+    train_repo = SQLiteTrainRepository()
+    train_service = TrainService(train_repo=train_repo)
 
     #Start bot
-    await start_bot(user_service=user_service)
+    await start_bot(user_service=user_service, train_service=train_service)
 
     # async with async_playwright() as playwright:
     #     await run(playwright)

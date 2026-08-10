@@ -197,7 +197,7 @@ async def process_confirm(message: Message, state: FSMContext, user_service: Use
 
     await state.clear()
 
-    if await user_service.register_user(user):
+    if await user_service.upsert_user(user):
         await message.answer("Регистрация прошла успешно!", reply_markup=ReplyKeyboardRemove())
     else:
         await message.answer("Данные пользователя успешно изменены.", reply_markup=ReplyKeyboardRemove())

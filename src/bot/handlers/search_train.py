@@ -8,7 +8,9 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 from bot.handlers.train_callback import TrainSubscribeCallback, get_train_keyboard
 from bot.states.search_train_state import SearchParams
-from services.parser import get_trains
+from exceptions import NoTrainsFoundException
+from services.parser import Parser
+from services.train_service import TrainService
 from utils.convert_date_time import convert_to_iso
 
 router = Router()
@@ -35,22 +37,29 @@ async def process_to_station(message: Message, state: FSMContext) -> None:
 
 
 @router.message(SearchParams.date)
-async def process_date(message: Message, state: FSMContext) -> None:
+async def process_date(message: Message, state: FSMContext, train_service: TrainService) -> None:
     date = convert_to_iso(message.text)
     if date is None:
         await message.answer(text="Неверный формат даты. Пожалуйста, введите дату в формате ДД.ММ.ГГГГ:")
         return
 
     data = await state.get_data()
+    await state.clear()
     from_station = str(data.get('from_station'))
     to_station = str(data.get('to_station'))
-    trains = await get_trains(from_station, to_station, date)
-    logging.debug("Trains: %s", trains)
-    for train in trains:
-        await message.answer(
-            train.to_html(),
-            parse_mode=ParseMode.HTML,
-            reply_markup=get_train_keyboard(train.id, False)
-        )
 
-        await state.clear()
+    try:
+        trains = await train_service.search_trains(from_station, to_station, date)
+        if not trains:
+            await message.answer("Поездов не найдено")
+            return
+
+        for train in trains:
+            await message.answer(
+                train.to_html(),
+                parse_mode=ParseMode.HTML,
+                reply_markup=get_train_keyboard(train.id, False)
+            )
+
+    except NoTrainsFoundException as e:
+        await message.answer(str(e))

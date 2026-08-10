@@ -5,10 +5,11 @@ from aiogram import Bot, Dispatcher
 from dotenv import load_dotenv
 
 from bot.handlers import handlers_router
+from services.train_service import TrainService
 from services.user_service import UserService
 
 
-async def start_bot(user_service: UserService):
+async def start_bot(user_service: UserService, train_service: TrainService):
     # Initialize bot and dispatcher
     load_dotenv()
     api_token = os.getenv("API_TOKEN")
@@ -18,6 +19,7 @@ async def start_bot(user_service: UserService):
     dp = Dispatcher()
 
     dp["user_service"] = user_service
+    dp["train_service"] = train_service
 
     #registration routers
     dp.include_router(handlers_router)
