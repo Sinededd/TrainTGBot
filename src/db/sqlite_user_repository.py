@@ -13,7 +13,7 @@ class SQLiteUserRepository(UserRepository):
         async with get_db(self.db_path) as db:
             await db.execute(
                 """
-                INSERT INTO users (id, surname, name, patronymic, passport_number, login, password)
+                INSERT OR REPLACE INTO users (id, surname, name, patronymic, passport_number, login, password)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
                 """,
                 (user.id, user.surname, user.name, user.patronymic, user.passport_number, user.login, user.password)

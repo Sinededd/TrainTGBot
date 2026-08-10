@@ -13,9 +13,11 @@ class UserService:
         Returns True if registration was successful, False if user already exists"""
         existing_user = await self.user_repo.get_by_id(user.id)
         if existing_user:
+            await self.user_repo.add(user)  # Update existing user
+            logging.info(f"User {user.id} was updated.")
             return False
 
-        logging.debug(f"Creating new user: {user}")
+        logging.info(f"Creating new user: {user}")
 
         await self.user_repo.add(user)
         return True

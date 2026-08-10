@@ -200,7 +200,7 @@ async def process_confirm(message: Message, state: FSMContext, user_service: Use
     if await user_service.register_user(user):
         await message.answer("Регистрация прошла успешно!", reply_markup=ReplyKeyboardRemove())
     else:
-        await message.answer("Данный пользователь уже зарегистрирован.", reply_markup=ReplyKeyboardRemove())
+        await message.answer("Данные пользователя успешно изменены.", reply_markup=ReplyKeyboardRemove())
 
 
 async def confirmation_ui(message: Message, state: FSMContext, hide_previous_message: bool = False):

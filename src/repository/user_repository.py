@@ -8,7 +8,7 @@ class UserRepository(ABC):
 
     @abstractmethod
     async def add(self, user: User) -> None:
-        """Create and save a new user"""
+        """Add a new user or replace it in the database"""
         pass
 
     @abstractmethod
