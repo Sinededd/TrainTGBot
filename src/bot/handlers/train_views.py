@@ -3,6 +3,7 @@ from aiogram.filters.callback_data import CallbackData
 from aiogram.types import InlineKeyboardMarkup, Message
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from models.subscription import Subscription
 from models.train import Train
 from services.subscriptions_service import SubscriptionsService
 
@@ -39,5 +40,5 @@ async def send_trains(message: Message, subscriptions_service: SubscriptionsServ
             train.to_html(),
             parse_mode=ParseMode.HTML,
             reply_markup=get_train_keyboard(train.id,
-                                            await subscriptions_service.check_subscription(message.chat.id, train.id)),
+                                            await subscriptions_service.check_subscription(Subscription(message.chat.id, train.id))),
         )

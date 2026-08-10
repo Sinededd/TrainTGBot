@@ -5,6 +5,7 @@ from aiogram.filters.callback_data import CallbackData
 from aiogram.types import CallbackQuery, Message
 
 from bot.handlers.train_views import get_train_keyboard, TrainSubscribeCallback
+from models.subscription import Subscription
 from services.subscriptions_service import SubscriptionsService
 
 router = Router()
@@ -25,9 +26,9 @@ async def toggle_subscription(callback: CallbackQuery, callback_data: TrainSubsc
         return
 
     if new_status:
-        await subscriptions_service.subscribe(callback.from_user.id, callback_data.train_id)
+        await subscriptions_service.subscribe(Subscription(callback.from_user.id, callback_data.train_id))
     else:
-        await subscriptions_service.unsubscribe(callback.from_user.id, callback_data.train_id)
+        await subscriptions_service.unsubscribe(Subscription(callback.from_user.id, callback_data.train_id))
 
     await callback.message.edit_reply_markup(reply_markup=new_keyboard)
     logger.info(f"Callback: User {callback.message.chat.id} subscribed to train {callback_data.train_id}")

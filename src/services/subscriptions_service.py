@@ -1,3 +1,4 @@
+from models.subscription import Subscription
 from models.train import Train
 from repository.subscriptions_repository import SubscriptionsRepository
 from services.train_service import TrainService
@@ -8,14 +9,14 @@ class SubscriptionsService:
         self.subscriptions_repo = subscriptions_repo
         self.train_service = train_service
 
-    async def subscribe(self, user_id: int, train_id: str) -> None:
-        await self.subscriptions_repo.add(user_id, train_id)
+    async def subscribe(self, subscription: Subscription) -> None:
+        await self.subscriptions_repo.add(subscription)
 
-    async def unsubscribe(self, user_id: int, train_id: str) -> None:
-        await self.subscriptions_repo.remove(user_id, train_id)
+    async def unsubscribe(self, subscription: Subscription) -> None:
+        await self.subscriptions_repo.remove(subscription)
 
-    async def check_subscription(self, user_id: int, train_id: str) -> bool:
-        return await self.subscriptions_repo.check(user_id, train_id)
+    async def check_subscription(self, subscription: Subscription) -> bool:
+        return await self.subscriptions_repo.check(subscription)
 
     async def get_subscribed_trains(self, user_id: int) -> list[Train]:
         train_ids = await self.subscriptions_repo.get_all_by_user_id(user_id)
