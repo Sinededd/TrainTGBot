@@ -6,10 +6,12 @@ from playwright.async_api import Playwright
 
 from bot.bot import start_bot
 from infrastructure.db.connection import init_db
+from infrastructure.db.repositories.sqlite_subscriptions_repository import SQLiteSubscriptionsRepository
 from infrastructure.db.repositories.sqlite_train_repository import SQLiteTrainRepository
 from infrastructure.db.repositories.sqlite_user_repository import SQLiteUserRepository
 from infrastructure.parser import seats_extractor
 from infrastructure.parser.rw_parser import Parser
+from services.subscriptions_service import SubscriptionsService
 from services.train_service import TrainService
 from services.user_service import UserService
 
@@ -57,9 +59,11 @@ async def main():
     user_service = UserService(user_repo=user_repo)
     train_repo = SQLiteTrainRepository()
     train_service = TrainService(train_repo=train_repo)
+    subscriptions_repo = SQLiteSubscriptionsRepository()
+    subscriptions_service = SubscriptionsService(subscriptions_repo=subscriptions_repo)
 
     #Start bot
-    await start_bot(user_service=user_service, train_service=train_service)
+    await start_bot(user_service=user_service, train_service=train_service, subscriptions_service=subscriptions_service)
 
     # async with async_playwright() as playwright:
     #     await run(playwright)

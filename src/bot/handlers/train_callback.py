@@ -5,6 +5,7 @@ from aiogram.filters.callback_data import CallbackData
 from aiogram.types import CallbackQuery, InlineKeyboardMarkup, Message
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
+from services.subscriptions_service import SubscriptionsService
 
 router = Router()
 
@@ -32,11 +33,8 @@ def get_train_keyboard(train_id: str, is_subscribed: bool) -> InlineKeyboardMark
 
 
 @router.callback_query(TrainSubscribeCallback.filter())
-async def toggle_subscription(callback: CallbackQuery, callback_data: TrainSubscribeCallback):
+async def toggle_subscription(callback: CallbackQuery, callback_data: TrainSubscribeCallback, subscriptions_service: SubscriptionsService):
     new_status = not callback_data.is_subscribed
-
-    #  Logic of saving in db:
-    # await db.set_user_subscription(user_id=callback.from_user.id, train_id=callback_data.train_id, status=new_status)
 
     new_keyboard = get_train_keyboard(
         train_id=callback_data.train_id,
@@ -47,6 +45,10 @@ async def toggle_subscription(callback: CallbackQuery, callback_data: TrainSubsc
         await callback.answer("Сообщение больше недоступно", show_alert=True)
         return
 
+    if new_status:
+        await subscriptions_service.subscribe(callback.from_user.id, callback_data.train_id)
+    else:
+        await subscriptions_service.unsubscribe(callback.from_user.id, callback_data.train_id)
 
     await callback.message.edit_reply_markup(reply_markup=new_keyboard)
     logger.info(f"Callback: User {callback.message.chat.id} subscribed to train {callback_data.train_id}")

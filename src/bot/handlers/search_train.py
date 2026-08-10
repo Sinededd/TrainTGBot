@@ -7,6 +7,7 @@ from aiogram.types import Message
 from bot.handlers.train_callback import get_train_keyboard
 from bot.states.search_train_state import SearchParams
 from domain.exceptions import NoTrainsFoundException
+from services.subscriptions_service import SubscriptionsService
 from services.train_service import TrainService
 from utils.convert_date_time import convert_to_iso
 
@@ -34,7 +35,7 @@ async def process_to_station(message: Message, state: FSMContext) -> None:
 
 
 @router.message(SearchParams.date)
-async def process_date(message: Message, state: FSMContext, train_service: TrainService) -> None:
+async def process_date(message: Message, state: FSMContext, train_service: TrainService, subscriptions_service: SubscriptionsService) -> None:
     date = convert_to_iso(message.text)
     if date is None:
         await message.answer(text="Неверный формат даты. Пожалуйста, введите дату в формате ДД.ММ.ГГГГ:")
@@ -55,7 +56,7 @@ async def process_date(message: Message, state: FSMContext, train_service: Train
             await message.answer(
                 train.to_html(),
                 parse_mode=ParseMode.HTML,
-                reply_markup=get_train_keyboard(train.id, False)
+                reply_markup=get_train_keyboard(train.id, await subscriptions_service.check_subscription(message.chat.id, train.id)),
             )
 
     except NoTrainsFoundException as e:
