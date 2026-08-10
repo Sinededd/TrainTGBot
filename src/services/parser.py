@@ -5,6 +5,7 @@ import time
 import urllib.parse
 from datetime import datetime
 from typing import Dict
+from venv import logger
 
 import httpx
 from bs4 import BeautifulSoup
@@ -154,8 +155,8 @@ async def get_trains(station_from: str, station_to: str, date: str) -> list[Trai
 class Parser:
     """Network parser for the Belarusian Railway website."""
 
-    def __init__(self, context: BrowserContext, trainRepository: TrainRepository):
-        self.trainRepository = trainRepository
+    def __init__(self, context: BrowserContext, train_repository: TrainRepository):
+        self.train_repository = train_repository
         self.context = context
         self.train_page = None
 
@@ -186,18 +187,21 @@ class Parser:
 
 
     async def get_train_data(self, train_id: str) -> Dict:
-        train = self.trainRepository.get_by_id(train_id)
+        train_entity = await self.train_repository.get_by_id(train_id)
 
-        # Create and send request
+        if train_entity is None:
+            logger.info(f"Not found train with id {train_id}")
+            return {}
+
         dt = datetime.strptime(
-            f"{train.date} {train.from_time}",
+            f"{train_entity.get_date()} {train_entity.get_time()}",
             "%Y-%m-%d %H:%M"
         )
         params = {
-            "from": train.from_station,
-            "to": train.to_station,
-            "date": train.date,
-            "train_number": train.train_number,
+            "from": train_entity.from_station,
+            "to": train_entity.to_station,
+            "date": train_entity.get_date(),
+            "train_number": train_entity.train_number,
             "car_type": "2",                    # !!! Пользователь должен иметь возможно устанавливать приоритет  типов вагона или отключать ненужные
             "apply_modificator": "",
             "from_time": int(dt.timestamp()),
@@ -210,30 +214,34 @@ class Parser:
         api_request_context = self.context.request
         response = await api_request_context.get(url)
         json_data = await response.json()
-        with open(f"train{train.id}.json", "w", encoding="utf-8") as f:
+        with open(f"train{train_entity.id}.json", "w", encoding="utf-8") as f:
             json.dump(json_data, f, ensure_ascii=False, indent=4)
 
         return json_data
 
 
     async def choose_train(self, train_id: str) -> None:
-        train = self.trainRepository.get_by_id(train_id)
+        train_entity = await self.train_repository.get_by_id(train_id)
+
+        if train_entity is None:
+            logger.info(f"Not found train with id {train_id}")
+            return
 
         params = {
-            "from": train.from_station,
+            "from": train_entity.from_station,
             "from_exp": "",
             "from_esr": "",
-            "to": train.to_station,
+            "to": train_entity.to_station,
             "to_exp": "",
             "to_esr": "",
             "front_date": "",
-            "date": str(train.date)
+            "date": str(train_entity.get_date())
         }
         url = f"https://pass.rw.by/ru/route?{urllib.parse.urlencode(params)}"
 
         self.train_page = await self.context.new_page()
         await self.train_page.goto(url)
-        train_row = self.train_page.locator(f'.sch-table__row[data-train-id="{train.id}"]')
+        train_row = self.train_page.locator(f'.sch-table__row[data-train-id="{train_entity.id}"]')
         await train_row.wait_for(state="visible", timeout=5000)
         await train_row.get_by_role("link", name="Выбрать места").click()
         await self.train_page.locator(".pl-accord__panel").first.wait_for(state="visible", timeout=10000)

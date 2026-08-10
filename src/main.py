@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from playwright.async_api import async_playwright, Playwright
 
 from bot.bot import start_bot
+from db.connection import init_db
 from db.sqlite_user_repository import SQLiteUserRepository
 from services import seats_extractor
 from services.parser import Parser
@@ -53,8 +54,8 @@ async def main():
     logging.basicConfig(level=logging.DEBUG)
 
     # Configure db
-    user_repo = SQLiteUserRepository(db_path="database.db")
-    await user_repo.init_db()
+    await init_db()
+    user_repo = SQLiteUserRepository()
     user_service = UserService(user_repo=user_repo)
 
     #Start bot

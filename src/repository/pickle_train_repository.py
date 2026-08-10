@@ -6,10 +6,13 @@ from repository.train_repository import TrainRepository
 class PickleTrainRepository(TrainRepository):
     """Реализация TrainRepository с использованием Pickle для сериализации"""
 
+    async def delete_expired(self) -> int:
+        pass
+
     def __init__(self, filename: str):
         self.filename = filename
 
-    def get_by_id(self, train_id: str):
+    async def get_by_id(self, train_id: str):
         try:
             with open(self.filename, 'rb') as f:
                 trains = pickle.load(f)
@@ -17,7 +20,7 @@ class PickleTrainRepository(TrainRepository):
         except FileNotFoundError:
             return None
 
-    def add(self, train):
+    async def add(self, train):
         try:
             with open(self.filename, 'rb') as f:
                 trains = pickle.load(f)

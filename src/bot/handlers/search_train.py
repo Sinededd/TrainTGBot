@@ -9,7 +9,7 @@ from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from bot.handlers.train_callback import TrainSubscribeCallback, get_train_keyboard
 from bot.states.search_train_state import SearchParams
 from services.parser import get_trains
-from utils.convert_data import convert_to_iso
+from utils.convert_date_time import convert_to_iso
 
 router = Router()
 

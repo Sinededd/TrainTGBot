@@ -7,15 +7,24 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: add train search functionality">
-      <change afterPath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement train subscribe button">
+      <change afterPath="$PROJECT_DIR$/src/db/connection.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/db/sqlite_train_repository.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/train_entity.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dto/train_mapper.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/repository/test_train_repository.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/handlers/search_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/search_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/db/sqlite_user_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/sqlite_user_repository.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/models/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/train.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/pickle_train_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/pickle_train_repository.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/train_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/train_repository.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/convert_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/convert_date_time.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/conftest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/services/test_parser.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,84 +71,139 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;Python tests.Python tests for test.test_parser.test_check_available_seats.executor&quot;: &quot;Run&quot;,
-    &quot;Python.main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
-    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;python&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/denis/Study/TrainTGBot/test&quot;,
-    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python tests.Python tests for repository.test_train_repository.test_add_and_get_train.executor": "Run",
+    "Python tests.Python tests for services.test_parser.TestGetTrainsFunction.executor": "Run",
+    "Python tests.Python tests for services.test_parser.TestParser.executor": "Run",
+    "Python tests.Python tests for services.test_parser.TestParser.test_get_train_data_generates_correct_url.executor": "Run",
+    "Python tests.Python tests for test.test_parser.test_check_available_seats.executor": "Run",
+    "Python tests.Python tests in test_parser.py.executor": "Run",
+    "Python tests.Python tests in tests.executor": "Run",
+    "Python.main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "copilot.chat.legacySessionMetadata.migrated": "true",
+    "git-widget-placeholder": "python",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/denis/Study/TrainTGBot/test",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": "",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test" />
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/services" />
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/bot/handlers" />
       <recent name="$PROJECT_DIR$/src/bot/states" />
       <recent name="$PROJECT_DIR$/src/services" />
-      <recent name="$PROJECT_DIR$/src/repository" />
-      <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="TrainTGBot" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="DEBUG_JUST_MY_CODE" value="false" />
-      <option name="RUN_TOOL" value="" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Python tests for test.test_parser.test_check_available_seats" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python tests.Python tests for services.test_parser.TestParserClass.test_choose_train_success">
+    <configuration name="Python tests for services.test_parser.TestGetTrainsFunction" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
       <module name="TrainTGBot" />
       <option name="ENV_FILES" value="" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="DEBUG_JUST_MY_CODE" value="false" />
       <option name="RUN_TOOL" value="" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test.test_parser.test_check_available_seats&quot;" />
+      <option name="_new_target" value="&quot;services.test_parser.TestGetTrainsFunction&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for services.test_parser.TestParserClass.test_choose_train_success" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="TrainTGBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;services.test_parser.TestParserClass.test_choose_train_success&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests for services.test_parser.TestParserClass.test_login_success" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="TrainTGBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;services.test_parser.TestParserClass.test_login_success&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in test_parser.py" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="TrainTGBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests/services/test_parser.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Python tests in tests" type="tests" factoryName="Autodetect" temporary="true" nameIsGenerated="true">
+      <module name="TrainTGBot" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="DEBUG_JUST_MY_CODE" value="false" />
+      <option name="RUN_TOOL" value="" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
+        <item itemvalue="Python tests.Python tests for services.test_parser.TestParserClass.test_choose_train_success" />
+        <item itemvalue="Python tests.Python tests for services.test_parser.TestParserClass.test_login_success" />
+        <item itemvalue="Python tests.Python tests in test_parser.py" />
+        <item itemvalue="Python tests.Python tests for services.test_parser.TestGetTrainsFunction" />
+        <item itemvalue="Python tests.Python tests in tests" />
       </list>
     </recent_temporary>
   </component>
@@ -294,7 +358,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785937681686</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="feat: implement train subscribe button">
+      <option name="closed" value="true" />
+      <created>1786008354347</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1786008354347</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,7 +401,8 @@
     <MESSAGE value="feat: implement user registration with SQLite repository" />
     <MESSAGE value="feat: implement encryption for sensitive user data" />
     <MESSAGE value="feat: add train search functionality" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add train search functionality" />
+    <MESSAGE value="feat: implement train subscribe button" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement train subscribe button" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

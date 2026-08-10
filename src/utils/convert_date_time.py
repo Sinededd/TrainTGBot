@@ -15,3 +15,10 @@ def convert_to_ddmmyyyy(date_string) -> str | None:
         return parsed_date.strftime('%d.%m.%Y')
     except (ValueError, TypeError):
         return None
+
+
+def get_datetime_iso(date: str, time: str) -> str:
+    """Return datetime ISO formatted"""
+    parsed_date = parser.parse(date, dayfirst=True)
+    full_datetime = parser.parse(time, default=parsed_date)
+    return full_datetime.isoformat()
