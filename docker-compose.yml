@@ -1,0 +1,9 @@
+services:
+  bot:
+    build: .
+    container_name: train_tg_bot
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./data:/app/data

@@ -5,7 +5,7 @@ from playwright.async_api import Browser
 from infrastructure.crypto import decrypt_text
 from infrastructure.parser import seats_extractor
 from infrastructure.parser.rw_parser import Parser
-from models.subscription import Subscription
+from domain.models.subscription import Subscription
 from repository.train_repository import TrainRepository
 from services.user_service import UserService
 

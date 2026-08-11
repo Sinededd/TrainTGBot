@@ -1,0 +1,9 @@
+aiogram>=3.30.0
+playwright>=1.61.0
+aiosqlite>=0.22.1
+cryptography>=50.0.0
+python-dotenv>=1.2.2
+beautifulsoup4>=4.15.0
+aiofiles>=25.1.0
+python-dateutil>=2.9.0
+httpx>=0.28.1

@@ -1,5 +1,5 @@
-from models.subscription import Subscription
-from models.train import Train
+from domain.models.subscription import Subscription
+from domain.models.train import Train
 from repository.subscriptions_repository import SubscriptionsRepository
 from services.train_service import TrainService
 

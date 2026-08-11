@@ -1,5 +1,3 @@
-from gettext import find
-
 from domain.models.train import Train
 from repository.train_repository import TrainRepository
 from infrastructure.parser.rw_parser import Parser

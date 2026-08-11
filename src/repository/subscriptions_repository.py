@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 
-from models.subscription import Subscription
+from domain.models.subscription import Subscription
 
 
 class SubscriptionsRepository(ABC):

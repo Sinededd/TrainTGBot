@@ -5,7 +5,7 @@ from aiogram.filters.callback_data import CallbackData
 from aiogram.types import CallbackQuery, Message
 
 from bot.handlers.train_views import get_train_keyboard, TrainSubscribeCallback
-from models.subscription import Subscription
+from domain.models.subscription import Subscription
 from services.subscriptions_service import SubscriptionsService
 from services.user_service import UserService
 

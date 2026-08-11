@@ -3,8 +3,8 @@ from aiogram.filters.callback_data import CallbackData
 from aiogram.types import InlineKeyboardMarkup, Message
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
-from models.subscription import Subscription
-from models.train import Train
+from domain.models.subscription import Subscription
+from domain.models.train import Train
 from services.subscriptions_service import SubscriptionsService
 
 

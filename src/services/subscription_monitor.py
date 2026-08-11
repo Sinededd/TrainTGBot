@@ -2,8 +2,8 @@ import asyncio
 import logging
 
 from bot.notifier import TelegramNotifier
-from models.subscription import Subscription
-from models.train import Train
+from domain.models.subscription import Subscription
+from domain.models.train import Train
 from repository.subscriptions_repository import SubscriptionsRepository
 from services.booking_service import BookingService
 from services.train_service import TrainService

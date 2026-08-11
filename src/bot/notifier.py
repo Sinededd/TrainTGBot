@@ -2,7 +2,7 @@ import logging
 
 from aiogram import Bot
 
-from models.train import Train
+from domain.models.train import Train
 
 logger = logging.getLogger(__name__)
 
