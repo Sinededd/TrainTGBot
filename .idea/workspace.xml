@@ -7,17 +7,14 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat:">
-      <change afterPath="$PROJECT_DIR$/src/bot/notifier.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/domain/models/subscription.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/subscription_monitor.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement subscription monitoring service and notifier">
+      <change afterPath="$PROJECT_DIR$/src/services/booking_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/train_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/train_views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infrastructure/db/repositories/sqlite_subscriptions_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/db/repositories/sqlite_subscriptions_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/subscriptions_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/subscriptions_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/subscriptions_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/subscriptions_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infrastructure/crypto.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/crypto.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/subscription_monitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/subscription_monitor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -430,7 +427,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786394911804</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="feat: implement subscription monitoring service and notifier">
+      <option name="closed" value="true" />
+      <created>1786400258582</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1786400258582</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -448,7 +453,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="init python" />
     <MESSAGE value="feat: implement train parsing" />
     <MESSAGE value="feat: implement train repository with pickle serialization and getting available seats" />
     <MESSAGE value="feat: get available seats" />
@@ -473,7 +477,8 @@
     <MESSAGE value="refactor: reorganize project structure and update import paths" />
     <MESSAGE value="feat: add subscriptions service" />
     <MESSAGE value="feat: implement view current subscriptions" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement view current subscriptions" />
+    <MESSAGE value="feat: implement subscription monitoring service and notifier" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement subscription monitoring service and notifier" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

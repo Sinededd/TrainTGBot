@@ -149,7 +149,7 @@ class Parser:
 
         return train_list
 
-    async def login(self):
+    async def login(self, login: str, password: str) -> None:
         """Login the user on the website"""
         page = await self.context.new_page()
         await page.goto("https://pass.rw.by/ru/")
@@ -160,16 +160,8 @@ class Parser:
         await page.get_by_role("button", name="Принять").click()
         await page.get_by_role("link", name="Личный кабинет").click()
 
-        login_val = os.getenv("BY_LOGIN")
-        password_val = os.getenv("BY_PASSWORD")
-        if not login_val or not password_val:
-            raise ValueError(
-                "Error:  BY_LOGIN or BY_PASSWORD not found in dotenv! "
-                "Check your dotenv file and try again."
-            )
-
-        await page.get_by_role("textbox", name="Логин/E-mail").fill(login_val)
-        await page.get_by_role("textbox", name="Пароль").fill(password_val)
+        await page.get_by_role("textbox", name="Логин/E-mail").fill(login)
+        await page.get_by_role("textbox", name="Пароль").fill(password)
         await page.get_by_role("button", name="Войти").click()
 
         await page.close()
@@ -199,8 +191,6 @@ class Parser:
         api_request_context = self.context.request
         response = await api_request_context.get(url)
         json_data = await response.json()
-        with open(f"train{train_number}{date}.json", "w", encoding="utf-8") as f:
-            json.dump(json_data, f, ensure_ascii=False, indent=4)
 
         return json_data
 
@@ -257,5 +247,4 @@ class Parser:
         await self.train_page.get_by_role("textbox", name="Номер документа *").fill(passNumber)
         await self.train_page.locator(".jq-checkbox").click()
 
-        await self.train_page.pause()
-        # await self.train_page.get_by_role("button", name="Оформить заказ").click()
+        await self.train_page.get_by_role("button", name="Оформить заказ").click()

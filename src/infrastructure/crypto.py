@@ -7,7 +7,7 @@ load_dotenv()
 
 KEY = os.getenv("SECRET_ENCRYPTION_KEY")
 if not KEY:
-    raise ValueError("SECRET_ENCRYPTION_KEY не найден в файле .env!")
+    raise ValueError("SECRET_ENCRYPTION_KEY not found in file .env!")
 
 cipher = Fernet(KEY.encode())
 

@@ -5,6 +5,7 @@ from bot.notifier import TelegramNotifier
 from models.subscription import Subscription
 from models.train import Train
 from repository.subscriptions_repository import SubscriptionsRepository
+from services.booking_service import BookingService
 from services.train_service import TrainService
 
 logger = logging.getLogger(__name__)
@@ -23,12 +24,14 @@ class SubscriptionMonitorService:
             self,
             subscriptions_repo: SubscriptionsRepository,
             train_service: TrainService,
+            booking_service: BookingService,
             notifier: TelegramNotifier,
             request_delay_seconds: float = 3.0,  # delay between requests
             check_interval_seconds: int = 300,  # delay between circle
     ):
         self.subscriptions_repo = subscriptions_repo
         self.train_service = train_service
+        self.booking_service = booking_service
         self.notifier = notifier
         self.request_delay = request_delay_seconds
         self.check_interval = check_interval_seconds
@@ -78,4 +81,5 @@ class SubscriptionMonitorService:
 
     async def _handle_seats_found(self, sub: Subscription, train) -> None:
         """Logic for detecting available seats."""
+        await self.booking_service.process_booking(sub)
         await self.notifier.notify_book(sub.user_id, train)
