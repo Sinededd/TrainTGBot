@@ -7,14 +7,11 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement subscription monitoring service and notifier">
-      <change afterPath="$PROJECT_DIR$/src/services/booking_service.py" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: implement booking service for handling train bookings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infrastructure/crypto.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/crypto.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/subscription_monitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/subscription_monitor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/auth.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/auth.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/subscriptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/subscriptions.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -435,7 +432,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786400258582</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="feat: implement booking service for handling train bookings">
+      <option name="closed" value="true" />
+      <created>1786432747353</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1786432747353</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +458,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: implement train parsing" />
     <MESSAGE value="feat: implement train repository with pickle serialization and getting available seats" />
     <MESSAGE value="feat: get available seats" />
     <MESSAGE value="feat: parsing chosen train, pick suitable seat, order a ticket" />
@@ -478,7 +482,8 @@
     <MESSAGE value="feat: add subscriptions service" />
     <MESSAGE value="feat: implement view current subscriptions" />
     <MESSAGE value="feat: implement subscription monitoring service and notifier" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement subscription monitoring service and notifier" />
+    <MESSAGE value="feat: implement booking service for handling train bookings" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement booking service for handling train bookings" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

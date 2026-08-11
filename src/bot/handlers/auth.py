@@ -8,10 +8,11 @@ from typing import Dict, Any, List
 from aiogram import Router
 from aiogram.enums import ParseMode
 from aiogram.exceptions import TelegramBadRequest
-from aiogram.filters import Command, CommandStart
+from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, KeyboardButton, ReplyKeyboardRemove
 
+from bot.handlers.start import command_start
 from bot.states.auth_states import AccountData, STATES_PERSONAL_LIST
 from bot.handlers.auth_views import send_state_ui
 from domain.models.user import User
@@ -200,6 +201,7 @@ async def process_confirm(message: Message, state: FSMContext, user_service: Use
         await message.answer("Регистрация прошла успешно!", reply_markup=ReplyKeyboardRemove())
     else:
         await message.answer("Данные пользователя успешно изменены.", reply_markup=ReplyKeyboardRemove())
+    await command_start(message, state, user_service)
 
 
 async def confirmation_ui(message: Message, state: FSMContext, hide_previous_message: bool = False):
@@ -267,8 +269,8 @@ async def process_reject(message: Message, state: FSMContext) -> None:
 
 # Handlers for each state
 
-@router.message(CommandStart())
-async def command_start(message: Message, state: FSMContext) -> None:
+@router.message(Command("account"))
+async def command_account(message: Message, state: FSMContext) -> None:
     if (await state.get_data()).get("reject", False):
         await confirmation_ui(message, state)
     else:

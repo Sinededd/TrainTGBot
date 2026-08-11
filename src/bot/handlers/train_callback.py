@@ -7,13 +7,19 @@ from aiogram.types import CallbackQuery, Message
 from bot.handlers.train_views import get_train_keyboard, TrainSubscribeCallback
 from models.subscription import Subscription
 from services.subscriptions_service import SubscriptionsService
+from services.user_service import UserService
 
 router = Router()
 
 
 @router.callback_query(TrainSubscribeCallback.filter())
 async def toggle_subscription(callback: CallbackQuery, callback_data: TrainSubscribeCallback,
-                              subscriptions_service: SubscriptionsService):
+                              subscriptions_service: SubscriptionsService, user_service: UserService):
+    user = await user_service.get_user(callback.from_user.id)
+    if not user:
+        await callback.answer("Вы не зарегистрированы. Пожалуйста, используйте команду /account для регистрации.")
+        return
+
     new_status = not callback_data.is_subscribed
 
     new_keyboard = get_train_keyboard(
