@@ -1,3 +1,6 @@
+from config_init import init_environment
+
+init_environment()
 import asyncio
 import logging
 
@@ -14,6 +17,8 @@ from services.user_service import UserService
 
 
 async def main():
+    init_environment()
+
     # Configure logging
     logging.basicConfig(level=logging.DEBUG)
 

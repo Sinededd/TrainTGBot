@@ -20,9 +20,9 @@ async def start_bot(playwright: Playwright, user_service: UserService, train_ser
                     subscriptions_service: SubscriptionsService, train_repository: TrainRepository):
     # Initialize bot and dispatcher
     load_dotenv()
-    api_token = os.getenv("API_TOKEN")
+    api_token = os.getenv("TELEGRAM_BOT_TOKEN")
     if api_token is None:
-        raise ValueError("API_TOKEN not found in .env file")
+        raise ValueError("TELEGRAM_BOT_TOKEN not found in .env file")
     bot = Bot(token=api_token)
     dp = Dispatcher()
 
