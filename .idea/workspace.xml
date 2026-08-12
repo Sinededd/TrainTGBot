@@ -7,25 +7,10 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: initialize environment and update bot token handling">
-      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: add Docker support">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/train_views.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/train_views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/notifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/notifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/config_init.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/config_init.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infrastructure/db/connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/db/connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infrastructure/db/repositories/sqlite_subscriptions_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/db/repositories/sqlite_subscriptions_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/subscriptions_repository.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/subscriptions_repository.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/booking_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/booking_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/subscription_monitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/subscription_monitor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/subscriptions_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/subscriptions_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/train_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/train_service.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -480,7 +465,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786442131799</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="feat: add Docker support">
+      <option name="closed" value="true" />
+      <created>1786482437253</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1786482437254</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -498,7 +491,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: parsing chosen train, pick suitable seat, order a ticket" />
     <MESSAGE value="refactor: update booking functions to eliminate page dependency" />
     <MESSAGE value="feat: add bot initialization and echo message handler" />
     <MESSAGE value="feat: add bot startup and routers logic" />
@@ -523,7 +515,8 @@
     <MESSAGE value="feat: implement booking service for handling train bookings" />
     <MESSAGE value="feat: start message and check auth user" />
     <MESSAGE value="feat: initialize environment and update bot token handling" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: initialize environment and update bot token handling" />
+    <MESSAGE value="feat: add Docker support" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add Docker support" />
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

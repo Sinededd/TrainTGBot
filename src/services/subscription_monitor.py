@@ -69,7 +69,7 @@ class SubscriptionMonitorService:
 
                 if train and _check_count_seats(train) > 0:
                     logger.info(f"Found seats for train: {train}. Seats: {_check_count_seats(train)}")
-
+                    await self.notifier.notify_free_seat(sub.user_id, train)
                     await self._handle_seats_found(sub, train)
 
             except Exception as e:

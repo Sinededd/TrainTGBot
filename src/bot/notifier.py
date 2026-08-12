@@ -11,6 +11,19 @@ class TelegramNotifier:
     def __init__(self, bot: Bot):
         self.bot = bot
 
+    async def notify_free_seat(self, user_id: int, train: Train):
+        """Send a notification when seats become available."""
+        text = (
+            f"Появились свободные места на поезд:\n"
+            f"№{train.train_number} ({train.from_station} ➔ {train.to_station})\n"
+            f"{train.date}\n"
+            f"**Успейте забронировать!**"
+        )
+        try:
+            await self.bot.send_message(chat_id=user_id, text=text, parse_mode="Markdown")
+        except Exception as e:
+            logger.error(f"Failed to send a notification to the user {user_id}: {e}")
+
     async def notify_book(self, user_id: int, train: Train) -> None:
         """Send a booking confirmation notification"""
         text = (
