@@ -7,10 +7,14 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: add Docker support">
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/notifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/notifier.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/subscription_monitor.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/subscription_monitor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/search_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/search_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/subscriptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/subscriptions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/convert_date_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/convert_date_time.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,8 +207,8 @@
     </configuration>
     <list>
       <item itemvalue="Python.main" />
-      <item itemvalue="Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_get_subscription" />
       <item itemvalue="Python tests.Python tests for repository.test_subscriptions_repository.TestSubscriptionsRepository" />
+      <item itemvalue="Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_get_subscription" />
       <item itemvalue="Python tests.Python tests in test_subscriptions_repository.py" />
       <item itemvalue="Python tests.Python tests in tests" />
     </list>
@@ -473,7 +477,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786482437254</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="feat: add notification for available train seats">
+      <option name="closed" value="true" />
+      <created>1786568657230</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1786568657230</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -491,7 +503,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="refactor: update booking functions to eliminate page dependency" />
     <MESSAGE value="feat: add bot initialization and echo message handler" />
     <MESSAGE value="feat: add bot startup and routers logic" />
     <MESSAGE value="feat: implement user authentication flow with personal data collection" />
@@ -516,7 +527,19 @@
     <MESSAGE value="feat: start message and check auth user" />
     <MESSAGE value="feat: initialize environment and update bot token handling" />
     <MESSAGE value="feat: add Docker support" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add Docker support" />
+    <MESSAGE value="feat: add notification for available train seats" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add notification for available train seats" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/services/booking_service.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="github-copilot-workspace">
     <instructionFileLocations>

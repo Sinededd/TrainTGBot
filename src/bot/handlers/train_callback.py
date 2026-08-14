@@ -1,4 +1,4 @@
-from venv import logger
+import logging
 
 from aiogram import Router
 from aiogram.filters.callback_data import CallbackData
@@ -9,6 +9,7 @@ from domain.models.subscription import Subscription
 from services.subscriptions_service import SubscriptionsService
 from services.user_service import UserService
 
+logger = logging.getLogger(__name__)
 router = Router()
 
 

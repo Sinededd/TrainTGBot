@@ -1,10 +1,8 @@
 from aiogram import Router
-from aiogram.enums import ParseMode
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from bot.handlers.train_callback import get_train_keyboard
 from bot.handlers.train_views import send_trains
 from bot.states.search_train_state import SearchParams
 from domain.exceptions import NoTrainsFoundException

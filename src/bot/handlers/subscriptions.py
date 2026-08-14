@@ -1,4 +1,4 @@
-from venv import logger
+import logging
 
 from aiogram import Router
 from aiogram.filters import Command
@@ -8,6 +8,7 @@ from bot.handlers.train_views import send_trains
 from services.subscriptions_service import SubscriptionsService
 from services.user_service import UserService
 
+logger = logging.getLogger(__name__)
 router = Router()
 
 
