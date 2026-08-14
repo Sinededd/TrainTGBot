@@ -3,17 +3,33 @@ from datetime import date, datetime
 from dateutil import parser
 
 
-def convert_to_iso(date_string) -> str | None:
+def convert_to_iso(date_string: str | date | datetime) -> str | None:
+    """Convert a date string or date/datetime object to ISO YYYY-MM-DD string.
+
+    Accepts either a string (like '01.02.2026' or '2026-02-01') or a
+    date/datetime object. Returns None on parse/convert failure.
+    """
     try:
-        parsed_date = parser.parse(date_string, dayfirst=True)
+        if isinstance(date_string, (date, datetime)):
+            return date_string.strftime('%Y-%m-%d')
+
+        parsed_date = parser.parse(str(date_string), dayfirst=True)
         return parsed_date.strftime('%Y-%m-%d')
     except (ValueError, TypeError):
         return None
 
 
-def convert_to_ddmmyyyy(date_string) -> str | None:
+def convert_to_ddmmyyyy(date_string: str | date | datetime) -> str | None:
+    """Convert a date string or date/datetime object to DD.MM.YYYY string.
+
+    This now supports already-parsed date/datetime objects (which previously
+    caused parse to raise and return None).
+    """
     try:
-        parsed_date = parser.parse(date_string, dayfirst=True)
+        if isinstance(date_string, (date, datetime)):
+            return date_string.strftime('%d.%m.%Y')
+
+        parsed_date = parser.parse(str(date_string), dayfirst=True)
         return parsed_date.strftime('%d.%m.%Y')
     except (ValueError, TypeError):
         return None

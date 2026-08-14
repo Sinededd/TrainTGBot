@@ -7,12 +7,9 @@
     <option name="selectedModelId" value="auto" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="">
+    <list default="true" id="24dd9ac9-4ccb-4eb8-97fa-cfd65a9323ea" name="Changes" comment="feat: improve logging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/bot/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/bot.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/search_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/search_train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/subscriptions.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/subscriptions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/bot/handlers/train_callback.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/infrastructure/parser/rw_parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/convert_date_time.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/convert_date_time.py" afterDir="false" />
     </list>
@@ -64,41 +61,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python tests.Python tests for repository.test_subscriptions_repository.TestSubscriptionsRepository.executor": "Run",
-    "Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_check_subscription.executor": "Run",
-    "Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_delete_subscription.executor": "Run",
-    "Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_get_subscription.executor": "Run",
-    "Python tests.Python tests for repository.test_train_repository.test_add_and_get_train.executor": "Run",
-    "Python tests.Python tests for services.test_parser.TestGetTrainsFunction.executor": "Run",
-    "Python tests.Python tests for services.test_parser.TestParser.executor": "Run",
-    "Python tests.Python tests for services.test_parser.TestParser.test_get_train_data_generates_correct_url.executor": "Run",
-    "Python tests.Python tests for services.test_parser.TestParserClass.test_choose_train_success.executor": "Run",
-    "Python tests.Python tests for services.test_parser.TestParserClass.test_login_success.executor": "Run",
-    "Python tests.Python tests for test.test_parser.test_check_available_seats.executor": "Run",
-    "Python tests.Python tests in test_parser.py.executor": "Run",
-    "Python tests.Python tests in test_subscriptions_repository.py.executor": "Run",
-    "Python tests.Python tests in tests.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "copilot.chat.legacySessionMetadata.migrated": "true",
-    "git-widget-placeholder": "python",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/denis/Study/TrainTGBot/test",
-    "node.js.detected.package.jshint": "true",
-    "node.js.selected.package.jshint": "",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python tests.Python tests for repository.test_subscriptions_repository.TestSubscriptionsRepository.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_check_subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_delete_subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for repository.test_subscriptions_repository.test_add_and_get_subscription.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for repository.test_train_repository.test_add_and_get_train.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for services.test_parser.TestGetTrainsFunction.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for services.test_parser.TestParser.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for services.test_parser.TestParser.test_get_train_data_generates_correct_url.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for services.test_parser.TestParserClass.test_choose_train_success.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for services.test_parser.TestParserClass.test_login_success.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test.test_parser.test_check_available_seats.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_parser.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in test_subscriptions_repository.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests in tests.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;copilot.chat.legacySessionMetadata.migrated&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;python&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/denis/Study/TrainTGBot/test&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test" />
@@ -485,7 +482,15 @@
       <option name="project" value="LOCAL" />
       <updated>1786568657230</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="feat: improve logging">
+      <option name="closed" value="true" />
+      <created>1786699298023</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1786699298023</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,7 +508,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: add bot initialization and echo message handler" />
     <MESSAGE value="feat: add bot startup and routers logic" />
     <MESSAGE value="feat: implement user authentication flow with personal data collection" />
     <MESSAGE value="feat(auth): enhance authentication flow navigation&#10;&#10;- Add state management for personal data form&#10;- Implement &quot;Back&quot; and &quot;Cancel&quot; button handlers" />
@@ -528,7 +532,8 @@
     <MESSAGE value="feat: initialize environment and update bot token handling" />
     <MESSAGE value="feat: add Docker support" />
     <MESSAGE value="feat: add notification for available train seats" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add notification for available train seats" />
+    <MESSAGE value="feat: improve logging" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: improve logging" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
